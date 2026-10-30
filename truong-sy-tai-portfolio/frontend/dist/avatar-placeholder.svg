@@ -80,3 +80,4 @@
   <rect x="140" y="420" width="220" height="42" rx="12" fill="#0B0F19" stroke="url(#accentGrad)" stroke-width="1.5" />
   <text x="250" y="446" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="14" font-weight="700" fill="#38BDF8">DATA_SPECIALIST.init()</text>
 </svg>
+

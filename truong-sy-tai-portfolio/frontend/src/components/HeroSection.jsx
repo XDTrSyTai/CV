@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { FileText, Send, Sparkles, Calendar, Compass, ArrowDown, Database, Cpu } from 'lucide-react';
+import { FileText, Send, Sparkles, Calendar, Compass, ArrowDown, Cpu } from 'lucide-react';
 import { personalInfo } from '../data/portfolioData';
 
 export const HeroSection = () => {
@@ -117,31 +117,16 @@ export const HeroSection = () => {
               </div>
 
               {/* Main Avatar Card Frame */}
-              <div className="absolute inset-1 rounded-[22px] overflow-hidden bg-gradient-to-b from-slate-800 to-slate-950 flex items-center justify-center group">
+              <div className="absolute inset-1 rounded-[22px] overflow-hidden bg-slate-900 flex items-center justify-center group">
                 <img
                   src={personalInfo.avatarUrl}
                   alt={personalInfo.name}
+                  style={{ objectPosition: 'center 48%' }}
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                 />
 
-                {/* Cyber Scanner line overlay */}
-                <div className="absolute inset-0 bg-gradient-to-b from-transparent via-sky-400/10 to-transparent h-1/2 animate-float pointer-events-none" />
-
-                {/* Floating Bottom Card Tag */}
-                <div className="absolute bottom-4 left-4 right-4 p-3 rounded-xl bg-slate-900/85 backdrop-blur-md border border-white/10 shadow-lg flex items-center justify-between">
-                  <div className="flex items-center space-x-2.5">
-                    <div className="p-2 rounded-lg bg-sky-500/20 text-sky-400">
-                      <Database className="w-4 h-4" />
-                    </div>
-                    <div>
-                      <p className="text-xs font-bold text-white leading-none">UTE Danang</p>
-                      <p className="text-[10px] text-slate-400 font-mono">CNTT - Khoá 2025</p>
-                    </div>
-                  </div>
-                  <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-semibold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
-                    Active
-                  </span>
-                </div>
+                {/* Subtle cyber ambient glow overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/40 via-transparent to-transparent pointer-events-none" />
               </div>
 
               {/* Floating Top-Right Mini Badge: Gemini Zodiac */}

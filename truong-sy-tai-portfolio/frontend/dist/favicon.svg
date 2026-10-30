@@ -14,3 +14,4 @@
   <line x1="50" y1="50" x2="72" y2="72" stroke="#22D3EE" stroke-width="1.5" stroke-dasharray="3 3"/>
   <text x="50%" y="60%" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="34" font-weight="800" fill="url(#grad)">TST</text>
 </svg>
+

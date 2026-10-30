@@ -18,7 +18,7 @@ export const personalInfo = {
   github: 'https://github.com',
   linkedin: 'https://linkedin.com',
   facebook: 'https://facebook.com',
-  avatarUrl: '/avatar-placeholder.svg',
+  avatarUrl: '/avatar.jpg',
   bio: 'Sinh viên Công nghệ Thông tin đầy nhiệt huyết tại Đại học Sư phạm Kỹ thuật Đà Nẵng. Tôi đam mê việc khám phá ý nghĩa đằng sau những tập dữ liệu khổng lồ, xây dựng các mô hình phân tích thông minh và phát triển các hệ thống xử lý dữ liệu quy mô lớn (Big Data).',
   stats: [
     { value: '6+', label: 'Ngôn ngữ lập trình' },
