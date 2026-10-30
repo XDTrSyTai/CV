@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="100%" height="100%">
+  <defs>
+    <!-- Gradients -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0F172A" />
+      <stop offset="50%" stop-color="#1E1B4B" />
+      <stop offset="100%" stop-color="#0284C7" />
+    </linearGradient>
+    <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38BDF8" />
+      <stop offset="50%" stop-color="#818CF8" />
+      <stop offset="100%" stop-color="#22D3EE" />
+    </linearGradient>
+    <linearGradient id="glowGrad" x1="0%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0%" stop-color="#38BDF8" stop-opacity="0.4" />
+      <stop offset="100%" stop-color="#38BDF8" stop-opacity="0" />
+    </linearGradient>
+    
+    <!-- Filter -->
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <!-- Background Base -->
+  <rect width="500" height="500" rx="36" fill="url(#bgGrad)" />
+
+  <!-- Data Grid Overlay -->
+  <g opacity="0.15" stroke="#38BDF8" stroke-width="1">
+    <line x1="50" y1="0" x2="50" y2="500" />
+    <line x1="100" y1="0" x2="100" y2="500" />
+    <line x1="150" y1="0" x2="150" y2="500" />
+    <line x1="200" y1="0" x2="200" y2="500" />
+    <line x1="250" y1="0" x2="250" y2="500" />
+    <line x1="300" y1="0" x2="300" y2="500" />
+    <line x1="350" y1="0" x2="350" y2="500" />
+    <line x1="400" y1="0" x2="400" y2="500" />
+    <line x1="450" y1="0" x2="450" y2="500" />
+    <line x1="0" y1="50" x2="500" y2="500" />
+    <line x1="0" y1="100" x2="500" y2="100" />
+    <line x1="0" y1="150" x2="500" y2="150" />
+    <line x1="0" y1="200" x2="500" y2="200" />
+    <line x1="0" y1="250" x2="500" y2="250" />
+    <line x1="0" y1="300" x2="500" y2="300" />
+    <line x1="0" y1="350" x2="500" y2="350" />
+    <line x1="0" y1="400" x2="500" y2="400" />
+    <line x1="0" y1="450" x2="500" y2="450" />
+  </g>
+
+  <!-- Concentric Neural Orbitals -->
+  <circle cx="250" cy="220" r="140" stroke="url(#accentGrad)" stroke-width="1.5" stroke-dasharray="8 8" opacity="0.4" />
+  <circle cx="250" cy="220" r="180" stroke="#818CF8" stroke-width="1" stroke-dasharray="4 12" opacity="0.3" />
+
+  <!-- Avatar Silhouette (Modern Geometric) -->
+  <!-- Shoulders / Torso -->
+  <path d="M 120 460 C 130 360, 180 320, 250 320 C 320 320, 370 360, 380 460 Z" fill="#1E293B" stroke="url(#accentGrad)" stroke-width="2" />
+  <path d="M 160 460 C 170 380, 210 340, 250 340 C 290 340, 330 380, 340 460 Z" fill="url(#glowGrad)" />
+
+  <!-- Neck -->
+  <rect x="225" y="260" width="50" height="70" rx="8" fill="#334155" />
+
+  <!-- Head -->
+  <ellipse cx="250" cy="200" rx="75" ry="95" fill="#1E293B" stroke="url(#accentGrad)" stroke-width="3" filter="url(#glow)" />
+
+  <!-- Cyber Glasses / Data Visor -->
+  <path d="M 185 190 Q 250 205 315 190 L 310 215 Q 250 230 190 215 Z" fill="url(#accentGrad)" opacity="0.9" />
+  <line x1="195" y1="202" x2="305" y2="202" stroke="#FFFFFF" stroke-width="2" opacity="0.8" />
+
+  <!-- Neural Nodes & Data Coordinates -->
+  <circle cx="150" cy="120" r="6" fill="#38BDF8" />
+  <circle cx="360" cy="140" r="5" fill="#22D3EE" />
+  <circle cx="90" cy="280" r="4" fill="#818CF8" />
+  <circle cx="410" cy="290" r="6" fill="#38BDF8" />
+  
+  <line x1="150" y1="120" x2="210" y2="170" stroke="#38BDF8" stroke-width="1.5" stroke-dasharray="4 4" opacity="0.6"/>
+  <line x1="360" y1="140" x2="290" y2="170" stroke="#22D3EE" stroke-width="1.5" stroke-dasharray="4 4" opacity="0.6"/>
+
+  <!-- Code/Data Badge at bottom -->
+  <rect x="140" y="420" width="220" height="42" rx="12" fill="#0B0F19" stroke="url(#accentGrad)" stroke-width="1.5" />
+  <text x="250" y="446" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="14" font-weight="700" fill="#38BDF8">DATA_SPECIALIST.init()</text>
+</svg>
