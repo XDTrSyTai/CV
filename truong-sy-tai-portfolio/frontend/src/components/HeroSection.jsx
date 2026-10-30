@@ -1,9 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { FileText, Send, Sparkles, Calendar, Compass, ArrowDown, Cpu } from 'lucide-react';
 import { personalInfo } from '../data/portfolioData';
 
 export const HeroSection = () => {
+  const [isAvatarActive, setIsAvatarActive] = useState(false);
+  const [hasInteracted, setHasInteracted] = useState(false);
+
+  const toggleAvatarActive = () => {
+    if (!hasInteracted) setHasInteracted(true);
+    setIsAvatarActive(prev => !prev);
+  };
+
   const handleDownloadCV = (e) => {
     e.preventDefault();
     alert('CV đang được cập nhật phiên bản mới nhất! Bạn có thể liên hệ trực tiếp với Trương Sỹ Tài qua form bên dưới.');
@@ -102,38 +110,120 @@ export const HeroSection = () => {
 
           </motion.div>
 
-          {/* Right Column: Avatar Presentation with Orbitals & Glass Badge */}
+          {/* Right Column: Avatar Presentation with Interactive Zoom, Running Border & Sliding Badges */}
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.2 }}
             className="lg:col-span-5 flex justify-center"
           >
-            <div className="relative w-72 h-72 sm:w-80 sm:h-80 md:w-96 md:h-96">
+            <div className="relative w-72 h-72 sm:w-80 sm:h-80 md:w-96 md:h-96 flex items-center justify-center">
               
-              {/* Outer decorative glowing ring */}
-              <div className="absolute inset-0 rounded-3xl bg-gradient-to-tr from-sky-500 via-indigo-500 to-cyan-400 p-[2px] shadow-2xl shadow-sky-500/20 animate-pulse-subtle">
-                <div className="w-full h-full bg-[#0B0F19] rounded-[22px]" />
-              </div>
+              {/* Interactive Main Avatar Card Container */}
+              <motion.div
+                onClick={toggleAvatarActive}
+                animate={{
+                  scale: isAvatarActive ? 1.16 : 1,
+                }}
+                transition={{
+                  duration: 0.65,
+                  ease: [0.22, 1, 0.36, 1]
+                }}
+                className="relative w-full h-full cursor-pointer select-none z-20 outline-none"
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    toggleAvatarActive();
+                  }
+                }}
+                aria-label="Ảnh chân dung cá nhân"
+              >
+                {/* 1. Default Ambient Glowing Border */}
+                <div
+                  className={`absolute inset-0 rounded-3xl bg-gradient-to-tr from-sky-500 via-indigo-500 to-cyan-400 p-[2px] shadow-2xl shadow-sky-500/20 transition-opacity duration-500 ${
+                    isAvatarActive ? 'opacity-0' : 'opacity-100 animate-pulse-subtle'
+                  }`}
+                >
+                  <div className="w-full h-full bg-[#0B0F19] rounded-[22px]" />
+                </div>
 
-              {/* Main Avatar Card Frame */}
-              <div className="absolute inset-1 rounded-[22px] overflow-hidden bg-slate-900 flex items-center justify-center group">
-                <img
-                  src={personalInfo.avatarUrl}
-                  alt={personalInfo.name}
-                  style={{ objectPosition: 'center 48%' }}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                />
+                {/* 2. Active Running Glowing Border (Animated Conic Beam) */}
+                <div
+                  className={`absolute inset-0 rounded-3xl overflow-hidden p-[2.5px] transition-all duration-500 pointer-events-none ${
+                    isAvatarActive ? 'opacity-100' : 'opacity-0'
+                  }`}
+                  style={{
+                    boxShadow: isAvatarActive
+                      ? '0 0 40px rgba(56, 189, 248, 0.7), 0 0 75px rgba(129, 140, 248, 0.45)'
+                      : 'none'
+                  }}
+                >
+                  <div
+                    className="absolute -inset-[100%] animate-spin-border"
+                    style={{
+                      background: 'conic-gradient(from 0deg, transparent 0deg, #38bdf8 60deg, #818cf8 130deg, #22d3ee 190deg, #a855f7 250deg, transparent 310deg)',
+                    }}
+                  />
+                </div>
 
-                {/* Subtle cyber ambient glow overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/40 via-transparent to-transparent pointer-events-none" />
-              </div>
+                {/* 3. Main Avatar Card Frame & Photo */}
+                <div className="absolute inset-[2.5px] rounded-[21.5px] overflow-hidden bg-slate-900 flex items-center justify-center group">
+                  <img
+                    src={personalInfo.avatarUrl}
+                    alt={personalInfo.name}
+                    draggable={false}
+                    style={{ objectPosition: 'center 48%' }}
+                    className={`w-full h-full object-cover transition-transform duration-700 ${
+                      isAvatarActive ? 'scale-105' : 'group-hover:scale-105'
+                    }`}
+                  />
+
+                  {/* Subtle cyber ambient glow overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/40 via-transparent to-transparent pointer-events-none" />
+                </div>
+              </motion.div>
 
               {/* Floating Top-Right Mini Badge: Gemini Zodiac */}
               <motion.div
-                animate={{ y: [-4, 4, -4] }}
-                transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-                className="absolute -top-3 -right-3 sm:-right-4 px-3 py-1.5 rounded-xl bg-slate-900/90 text-white backdrop-blur-md border border-indigo-500/40 shadow-xl flex items-center gap-1.5 text-xs font-mono"
+                initial={false}
+                animate={
+                  isAvatarActive
+                    ? {
+                        x: [0, 18, -80],
+                        y: [0, -14, 70],
+                        scale: [1, 1.06, 0.6],
+                        opacity: [1, 0.9, 0],
+                        rotate: [0, 5, -6],
+                        transition: {
+                          duration: 0.55,
+                          times: [0, 0.22, 1],
+                          ease: [0.25, 1, 0.35, 1],
+                        },
+                      }
+                    : hasInteracted
+                    ? {
+                        x: [-80, 12, 0],
+                        y: [70, -10, 0],
+                        scale: [0.6, 1.05, 1],
+                        opacity: [0, 1, 1],
+                        rotate: [-6, 3, 0],
+                        transition: {
+                          duration: 0.65,
+                          times: [0, 0.72, 1],
+                          ease: [0.22, 1, 0.36, 1],
+                        },
+                      }
+                    : {
+                        x: 0,
+                        y: 0,
+                        scale: 1,
+                        opacity: 1,
+                        rotate: 0,
+                      }
+                }
+                className="absolute -top-5 -right-4 sm:-top-6 sm:-right-6 px-3.5 py-1.5 rounded-xl bg-slate-900/90 text-white backdrop-blur-md border border-indigo-500/40 shadow-xl flex items-center gap-1.5 text-xs font-mono pointer-events-none select-none z-30"
               >
                 <span className="text-amber-400 font-bold text-sm">♊</span>
                 <span className="font-semibold text-sky-300">Gemini</span>
@@ -142,9 +232,43 @@ export const HeroSection = () => {
 
               {/* Floating Left Mini Badge: AI & Data */}
               <motion.div
-                animate={{ y: [4, -4, 4] }}
-                transition={{ duration: 4.5, repeat: Infinity, ease: 'easeInOut' }}
-                className="absolute -bottom-3 -left-3 sm:-left-4 px-3 py-1.5 rounded-xl bg-slate-900/90 text-white backdrop-blur-md border border-cyan-500/40 shadow-xl flex items-center gap-1.5 text-xs font-mono"
+                initial={false}
+                animate={
+                  isAvatarActive
+                    ? {
+                        x: [0, -18, 80],
+                        y: [0, 14, -70],
+                        scale: [1, 1.06, 0.6],
+                        opacity: [1, 0.9, 0],
+                        rotate: [0, -5, 6],
+                        transition: {
+                          duration: 0.55,
+                          times: [0, 0.22, 1],
+                          ease: [0.25, 1, 0.35, 1],
+                        },
+                      }
+                    : hasInteracted
+                    ? {
+                        x: [80, -12, 0],
+                        y: [-70, 10, 0],
+                        scale: [0.6, 1.05, 1],
+                        opacity: [0, 1, 1],
+                        rotate: [6, -3, 0],
+                        transition: {
+                          duration: 0.65,
+                          times: [0, 0.72, 1],
+                          ease: [0.22, 1, 0.36, 1],
+                        },
+                      }
+                    : {
+                        x: 0,
+                        y: 0,
+                        scale: 1,
+                        opacity: 1,
+                        rotate: 0,
+                      }
+                }
+                className="absolute -bottom-5 -left-4 sm:-bottom-6 sm:-left-6 px-3.5 py-1.5 rounded-xl bg-slate-900/90 text-white backdrop-blur-md border border-cyan-500/40 shadow-xl flex items-center gap-1.5 text-xs font-mono pointer-events-none select-none z-30"
               >
                 <Cpu className="w-3.5 h-3.5 text-cyan-400" />
                 <span className="text-slate-200 font-medium">Big Data Focus</span>
