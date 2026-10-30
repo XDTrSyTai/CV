@@ -4,9 +4,11 @@ import { BackgroundCanvas } from './components/BackgroundCanvas';
 import { Navbar } from './components/Navbar';
 import { HeroSection } from './components/HeroSection';
 import { AboutSection } from './components/AboutSection';
+import { GallerySection } from './components/GallerySection';
+import { SocialMedia } from './components/SocialMedia';
 import { SkillsSection } from './components/SkillsSection';
 import { ProjectsSection } from './components/ProjectsSection';
-import { GallerySection } from './components/GallerySection';
+import { TerminalSection } from './components/TerminalSection';
 import { ContactSection } from './components/ContactSection';
 import { Footer } from './components/Footer';
 
@@ -24,9 +26,11 @@ function App() {
         <main className="relative z-10">
           <HeroSection />
           <AboutSection />
+          <GallerySection />
+          <SocialMedia />
           <SkillsSection />
           <ProjectsSection />
-          <GallerySection />
+          <TerminalSection />
           <ContactSection />
         </main>
 

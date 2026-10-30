@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { FolderGit2, Clock, Sparkles, Layers, ArrowUpRight, Github } from 'lucide-react';
+import { FolderGit2, Clock, Sparkles, Layers, ArrowUpRight } from 'lucide-react';
 import { upcomingProjects } from '../data/portfolioData';
 
 export const ProjectsSection = () => {

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, MapPin, Send, Github, Linkedin, Facebook, CheckCircle2, AlertCircle, Loader2, Sparkles, MessageSquare } from 'lucide-react';
+import { Mail, MapPin, Phone, Send, CheckCircle2, AlertCircle, Loader2, Sparkles, MessageSquare, Clock } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { personalInfo } from '../data/portfolioData';
 
@@ -109,7 +109,7 @@ export const ContactSection = () => {
         {/* Contact Content Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
           
-          {/* Left Column (5 cols): Contact Cards & Socials */}
+          {/* Left Column (5 cols): Direct Contact Information */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -122,77 +122,69 @@ export const ContactSection = () => {
                 Thông tin trực tiếp
               </h3>
 
-              <div className="space-y-5">
+              <div className="space-y-6">
+                {/* Email */}
                 <div className="flex items-start space-x-3.5">
                   <div className="p-2.5 rounded-xl bg-sky-500/10 text-sky-500 mt-0.5">
                     <Mail className="w-5 h-5" />
                   </div>
                   <div>
-                    <p className="text-xs text-slate-500 dark:text-slate-400 font-mono">Email trao đổi</p>
+                    <p className="text-xs text-slate-500 dark:text-slate-400 font-mono">Email cá nhân</p>
                     <a
                       href={`mailto:${personalInfo.email}`}
                       className="text-sm font-semibold text-slate-800 dark:text-slate-100 hover:text-sky-500 transition-colors"
                     >
                       {personalInfo.email}
                     </a>
+                    <p className="text-[11px] text-slate-400 dark:text-slate-500 mt-0.5">
+                      Phản hồi trong vòng 24 giờ
+                    </p>
                   </div>
                 </div>
 
+                {/* Phone */}
+                <div className="flex items-start space-x-3.5">
+                  <div className="p-2.5 rounded-xl bg-emerald-500/10 text-emerald-500 mt-0.5">
+                    <Phone className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <p className="text-xs text-slate-500 dark:text-slate-400 font-mono">Số điện thoại</p>
+                    <a
+                      href={`tel:${personalInfo.phone.replace(/[^0-9+]/g, '')}`}
+                      className="text-sm font-semibold text-slate-800 dark:text-slate-100 hover:text-emerald-500 transition-colors"
+                    >
+                      {personalInfo.phone}
+                    </a>
+                    <p className="text-[11px] text-slate-400 dark:text-slate-500 mt-0.5">
+                      Hỗ trợ trao đổi công việc & thực tập
+                    </p>
+                  </div>
+                </div>
+
+                {/* Location */}
                 <div className="flex items-start space-x-3.5">
                   <div className="p-2.5 rounded-xl bg-indigo-500/10 text-indigo-500 mt-0.5">
                     <MapPin className="w-5 h-5" />
                   </div>
                   <div>
-                    <p className="text-xs text-slate-500 dark:text-slate-400 font-mono">Khu vực sinh sống</p>
+                    <p className="text-xs text-slate-500 dark:text-slate-400 font-mono">Khu vực làm việc</p>
                     <p className="text-sm font-semibold text-slate-800 dark:text-slate-100">
                       {personalInfo.location}
                     </p>
-                    <p className="text-xs text-slate-500 dark:text-slate-400">
+                    <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
                       Trường ĐH Sư phạm Kỹ thuật - ĐH Đà Nẵng
                     </p>
                   </div>
                 </div>
               </div>
 
-              {/* Social Channels Section */}
-              <div className="mt-8 pt-6 border-t border-slate-200 dark:border-slate-800">
-                <p className="text-xs font-mono font-semibold text-slate-500 dark:text-slate-400 mb-4 uppercase tracking-wider">
-                  Mạng xã hội & Hồ sơ lập trình
-                </p>
-
-                <div className="grid grid-cols-3 gap-3">
-                  <a
-                    href={personalInfo.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex flex-col items-center justify-center p-3 rounded-xl bg-slate-100/80 dark:bg-slate-800/60 hover:bg-sky-500/10 text-slate-700 dark:text-slate-200 hover:text-sky-500 border border-slate-200/80 dark:border-slate-800 transition-colors"
-                  >
-                    <Github className="w-5 h-5 mb-1.5" />
-                    <span className="text-[11px] font-mono">GitHub</span>
-                  </a>
-
-                  <a
-                    href={personalInfo.linkedin}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex flex-col items-center justify-center p-3 rounded-xl bg-slate-100/80 dark:bg-slate-800/60 hover:bg-sky-500/10 text-slate-700 dark:text-slate-200 hover:text-sky-500 border border-slate-200/80 dark:border-slate-800 transition-colors"
-                  >
-                    <Linkedin className="w-5 h-5 mb-1.5" />
-                    <span className="text-[11px] font-mono">LinkedIn</span>
-                  </a>
-
-                  <a
-                    href={personalInfo.facebook}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex flex-col items-center justify-center p-3 rounded-xl bg-slate-100/80 dark:bg-slate-800/60 hover:bg-sky-500/10 text-slate-700 dark:text-slate-200 hover:text-sky-500 border border-slate-200/80 dark:border-slate-800 transition-colors"
-                  >
-                    <Facebook className="w-5 h-5 mb-1.5" />
-                    <span className="text-[11px] font-mono">Facebook</span>
-                  </a>
+              {/* Working Hours / Availability Notice */}
+              <div className="mt-8 pt-6 border-t border-slate-200 dark:border-slate-800/80">
+                <div className="flex items-center gap-2 text-xs font-mono text-slate-500 dark:text-slate-400">
+                  <Clock className="w-4 h-4 text-sky-500" />
+                  <span>Thời gian tiếp nhận: 08:00 - 21:00 (Thứ 2 - Thứ 7)</span>
                 </div>
               </div>
-
             </div>
           </motion.div>
 

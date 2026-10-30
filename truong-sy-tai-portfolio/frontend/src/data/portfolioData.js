@@ -15,6 +15,7 @@ export const personalInfo = {
   futureRole: 'Chuyên gia Dữ liệu (Data Scientist / Data Analyst / Big Data Engineer)',
   location: 'Đà Nẵng, Việt Nam',
   email: 'truongsytai.dev@gmail.com',
+  phone: '(+84) 935 888 678',
   github: 'https://github.com',
   linkedin: 'https://linkedin.com',
   facebook: 'https://facebook.com',

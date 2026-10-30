@@ -6,10 +6,10 @@ import GooeyNav from './GooeyNav';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const navItems = [
-  { label: 'Về tôi', href: '#about' },
-  { label: 'Kỹ năng & Chuyên môn', href: '#skills' },
+  { label: 'Giới thiệu', href: '#about' },
+  { label: 'Mạng xã hội', href: '#socials' },
+  { label: 'Trình độ', href: '#skills' },
   { label: 'Dự án', href: '#projects' },
-  { label: 'Khoảnh Khắc', href: '#gallery' },
   { label: 'Liên hệ', href: '#contact' },
 ];
 
@@ -32,7 +32,7 @@ export const Navbar = () => {
 
       if (isClickingRef.current) return;
 
-      const sections = ['about', 'skills', 'projects', 'gallery', 'contact'];
+      const sections = ['about', 'socials', 'skills', 'projects', 'contact'];
       const scrollPosition = window.scrollY + 200;
 
       for (let i = sections.length - 1; i >= 0; i--) {
