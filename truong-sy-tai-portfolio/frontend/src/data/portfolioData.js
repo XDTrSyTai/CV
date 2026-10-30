@@ -241,6 +241,54 @@ export const galleryItems = [
     aspect: 'aspect-[3/4]',
     imageUrl: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=800&q=80',
     description: 'Mỗi bài toán dữ liệu là một hành trình giải mã thú vị'
+  },
+  {
+    id: 7,
+    title: 'Data Science & Visual Analytics',
+    category: 'Analytics Lab',
+    aspect: 'aspect-[4/3]',
+    imageUrl: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80',
+    description: 'Trực quan hóa đồ thị và phân tích thông minh từ tập dữ liệu lớn'
+  },
+  {
+    id: 8,
+    title: 'Thư viện & Không gian Tự học UTE',
+    category: 'Academic Focus',
+    aspect: 'aspect-[4/3]',
+    imageUrl: 'https://images.unsplash.com/photo-1521587760476-6c12a4b040da?auto=format&fit=crop&w=800&q=80',
+    description: 'Trau dồi tri thức học thuật và kỹ năng chuyên môn mỗi ngày'
+  },
+  {
+    id: 9,
+    title: 'Học máy & Trí tuệ Nhân tạo',
+    category: 'Machine Learning',
+    aspect: 'aspect-[4/3]',
+    imageUrl: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80',
+    description: 'Nghiên cứu các thuật toán tối ưu hóa và kiến trúc mô hình AI tiên tiến'
+  },
+  {
+    id: 10,
+    title: 'Hackathon & Lập trình Sáng tạo',
+    category: 'Hackathon',
+    aspect: 'aspect-[4/3]',
+    imageUrl: 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=800&q=80',
+    description: 'Thử thách giải quyết bài toán thực tế trong 48 giờ liên tục'
+  },
+  {
+    id: 11,
+    title: 'Kiến trúc Pipeline Dữ liệu Lớn',
+    category: 'Data Pipeline',
+    aspect: 'aspect-[4/3]',
+    imageUrl: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=800&q=80',
+    description: 'Xây dựng luồng luân chuyển dữ liệu tự động, tốc độ cao và mở rộng linh hoạt'
+  },
+  {
+    id: 12,
+    title: 'Tọa đàm Kết nối Doanh nghiệp CNTT',
+    category: 'Career Networking',
+    aspect: 'aspect-[4/3]',
+    imageUrl: 'https://images.unsplash.com/photo-1515187029135-18ee286d815b?auto=format&fit=crop&w=800&q=80',
+    description: 'Gặp gỡ, học hỏi kinh nghiệm thực chiến từ các kỹ sư công nghệ đầu ngành'
   }
 ];
 

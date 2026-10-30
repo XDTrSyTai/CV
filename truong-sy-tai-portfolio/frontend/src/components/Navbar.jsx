@@ -9,7 +9,7 @@ const navItems = [
   { label: 'Về tôi', href: '#about' },
   { label: 'Kỹ năng & Chuyên môn', href: '#skills' },
   { label: 'Dự án', href: '#projects' },
-  { label: 'Thư viện ảnh', href: '#gallery' },
+  { label: 'Khoảnh Khắc', href: '#gallery' },
   { label: 'Liên hệ', href: '#contact' },
 ];
 
