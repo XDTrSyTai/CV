@@ -9,11 +9,8 @@ export const ThemeProvider = ({ children }) => {
     if (savedTheme === 'light' || savedTheme === 'dark') {
       return savedTheme;
     }
-    // 2. Default: Automatically detect device setting via prefers-color-scheme
-    if (typeof window !== 'undefined' && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-      return 'dark';
-    }
-    return 'light';
+    // 2. Default: Futuristic Cyber Dark Theme
+    return 'dark';
   });
 
   useEffect(() => {
