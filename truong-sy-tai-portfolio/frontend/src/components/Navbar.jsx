@@ -1,20 +1,25 @@
-import React, { useState, useEffect } from 'react';
-import { Menu, X, Terminal, Sparkles } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { Menu, X, Sparkles } from 'lucide-react';
 import { ThemeToggle } from './ThemeToggle';
+import { useTheme } from '../context/ThemeContext';
+import GooeyNav from './GooeyNav';
 import { motion, AnimatePresence } from 'framer-motion';
 
-const navLinks = [
-  { name: 'Về tôi', href: '#about' },
-  { name: 'Kỹ năng & Chuyên môn', href: '#skills' },
-  { name: 'Dự án', href: '#projects' },
-  { name: 'Thư viện ảnh', href: '#gallery' },
-  { name: 'Liên hệ', href: '#contact' },
+const navItems = [
+  { label: 'Về tôi', href: '#about' },
+  { label: 'Kỹ năng & Chuyên môn', href: '#skills' },
+  { label: 'Dự án', href: '#projects' },
+  { label: 'Thư viện ảnh', href: '#gallery' },
+  { label: 'Liên hệ', href: '#contact' },
 ];
 
 export const Navbar = () => {
+  const { isDark } = useTheme();
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
+  const [activeNavIndex, setActiveNavIndex] = useState(0);
+  const isClickingRef = useRef(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -24,18 +29,39 @@ export const Navbar = () => {
       if (totalScroll > 0) {
         setScrollProgress((window.scrollY / totalScroll) * 100);
       }
+
+      if (isClickingRef.current) return;
+
+      const sections = ['about', 'skills', 'projects', 'gallery', 'contact'];
+      const scrollPosition = window.scrollY + 200;
+
+      for (let i = sections.length - 1; i >= 0; i--) {
+        const el = document.getElementById(sections[i]);
+        if (el && el.offsetTop <= scrollPosition) {
+          setActiveNavIndex(i);
+          break;
+        }
+      }
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const handleNavChange = (index) => {
+    isClickingRef.current = true;
+    setActiveNavIndex(index);
+    setTimeout(() => {
+      isClickingRef.current = false;
+    }, 800);
+  };
+
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
-          ? 'bg-white/80 dark:bg-[#0B0F19]/85 backdrop-blur-xl border-b border-slate-200/80 dark:border-white/10 shadow-sm dark:shadow-slate-950/40 py-3'
-          : 'bg-transparent py-5'
+          ? 'bg-white/80 dark:bg-[#0B0F19]/85 backdrop-blur-xl border-b border-slate-200/80 dark:border-white/10 shadow-sm dark:shadow-slate-950/40 py-2.5 sm:py-3'
+          : 'bg-transparent py-4 sm:py-5'
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -43,7 +69,7 @@ export const Navbar = () => {
           {/* Logo / Monogram */}
           <a
             href="#"
-            className="group flex items-center space-x-2.5 cursor-pointer focus:outline-none"
+            className="group flex items-center space-x-2.5 cursor-pointer focus:outline-none flex-shrink-0"
             aria-label="Về đầu trang"
           >
             <div className="relative flex items-center justify-center w-10 h-10 rounded-xl bg-gradient-to-tr from-sky-500 via-indigo-500 to-cyan-400 p-[1.5px] shadow-md shadow-sky-500/20 group-hover:shadow-sky-500/40 transition-shadow">
@@ -65,25 +91,45 @@ export const Navbar = () => {
             </div>
           </a>
 
-          {/* Desktop Navigation Links */}
-          <nav className="hidden md:flex items-center space-x-1 lg:space-x-2">
-            {navLinks.map((link) => (
-              <a
-                key={link.name}
-                href={link.href}
-                className="px-3.5 py-2 text-sm font-medium rounded-lg text-slate-600 dark:text-slate-300 hover:text-sky-600 dark:hover:text-sky-400 hover:bg-slate-100/70 dark:hover:bg-slate-800/60 transition-all duration-200 cursor-pointer"
-              >
-                {link.name}
-              </a>
-            ))}
-          </nav>
+          {/* Desktop Navigation with React Bits GooeyNav */}
+          <div className="hidden md:flex items-center justify-center">
+            <GooeyNav
+              items={navItems}
+              activeIndex={activeNavIndex}
+              onChange={handleNavChange}
+              theme={isDark ? 'dark' : 'light'}
+              color={isDark ? '#38bdf8' : '#0284c7'}
+              colors={
+                isDark
+                  ? ['#38bdf8', '#22d3ee', '#818cf8', '#60a5fa']
+                  : ['#0284c7', '#0ea5e9', '#6366f1']
+              }
+              activeTextColor={isDark ? '#0B0F19' : '#ffffff'}
+              size="sm"
+              frame={true}
+              particleCount={15}
+              spread={56}
+              animationTime={600}
+              timeVariance={300}
+              gooeyness={0.5}
+              wobble={0.5}
+              hoverEffect={true}
+            />
+          </div>
 
           {/* Right Action Buttons */}
-          <div className="flex items-center space-x-3">
+          <div className="flex items-center space-x-3 flex-shrink-0">
             <ThemeToggle />
 
             <a
               href="#contact"
+              onClick={() => {
+                isClickingRef.current = true;
+                setActiveNavIndex(4);
+                setTimeout(() => {
+                  isClickingRef.current = false;
+                }, 800);
+              }}
               className="hidden lg:inline-flex items-center justify-center px-4 py-2 text-xs font-semibold rounded-xl text-white bg-gradient-to-r from-sky-500 to-indigo-600 hover:from-sky-400 hover:to-indigo-500 shadow-md shadow-sky-500/25 hover:shadow-sky-500/40 transition-all duration-300 cursor-pointer"
             >
               Liên hệ ngay
@@ -121,20 +167,30 @@ export const Navbar = () => {
             className="md:hidden overflow-hidden bg-white/95 dark:bg-[#0B0F19]/95 backdrop-blur-2xl border-b border-slate-200 dark:border-slate-800 px-4 pt-3 pb-6 shadow-xl"
           >
             <div className="flex flex-col space-y-2">
-              {navLinks.map((link) => (
+              {navItems.map((item, index) => (
                 <a
-                  key={link.name}
-                  href={link.href}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="px-4 py-2.5 text-sm font-medium rounded-lg text-slate-700 dark:text-slate-200 hover:bg-sky-50 dark:hover:bg-slate-800/80 hover:text-sky-600 dark:hover:text-sky-400 transition-colors"
+                  key={item.label}
+                  href={item.href}
+                  onClick={() => {
+                    setActiveNavIndex(index);
+                    setMobileMenuOpen(false);
+                  }}
+                  className={`px-4 py-2.5 text-sm font-medium rounded-lg transition-colors ${
+                    activeNavIndex === index
+                      ? 'bg-sky-500/10 text-sky-600 dark:text-sky-400 font-semibold'
+                      : 'text-slate-700 dark:text-slate-200 hover:bg-sky-50 dark:hover:bg-slate-800/80 hover:text-sky-600 dark:hover:text-sky-400'
+                  }`}
                 >
-                  {link.name}
+                  {item.label}
                 </a>
               ))}
               <div className="pt-2">
                 <a
                   href="#contact"
-                  onClick={() => setMobileMenuOpen(false)}
+                  onClick={() => {
+                    setActiveNavIndex(4);
+                    setMobileMenuOpen(false);
+                  }}
                   className="w-full text-center block px-4 py-2.5 text-sm font-semibold rounded-xl text-white bg-gradient-to-r from-sky-500 to-indigo-600 shadow-md"
                 >
                   Liên hệ ngay
@@ -147,4 +203,5 @@ export const Navbar = () => {
     </header>
   );
 };
+export default Navbar;
 
