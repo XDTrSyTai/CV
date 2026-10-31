@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, MapPin, Phone, Send, CheckCircle2, AlertCircle, Loader2, Sparkles, MessageSquare, Clock } from 'lucide-react';
+import { Mail, MapPin, Phone, Send, CheckCircle2, AlertCircle, Loader2, MessageSquare, Clock } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { personalInfo } from '../data/portfolioData';
 
@@ -40,7 +40,6 @@ export const ContactSection = () => {
     setStatus({ loading: true, success: false, error: null, message: '' });
 
     try {
-      // Call backend API on port 5000
       const response = await fetch('http://localhost:5000/api/contact', {
         method: 'POST',
         headers: {
@@ -60,18 +59,16 @@ export const ContactSection = () => {
         });
         setFormData({ name: '', email: '', subject: '', message: '' });
 
-        // Trigger celebratory confetti
         confetti({
-          particleCount: 80,
-          spread: 70,
+          particleCount: 50,
+          spread: 60,
           origin: { y: 0.6 }
         });
       } else {
         throw new Error(data.message || 'Gửi tin nhắn không thành công.');
       }
     } catch (err) {
-      console.warn('Backend API offline or unreachable, providing graceful client fallback:', err);
-      // Fallback: If backend server is not running yet during testing, simulate success with a notice
+      console.warn('Backend API fallback:', err);
       setStatus({
         loading: false,
         success: true,
@@ -81,150 +78,151 @@ export const ContactSection = () => {
       setFormData({ name: '', email: '', subject: '', message: '' });
 
       confetti({
-        particleCount: 60,
-        spread: 60,
+        particleCount: 40,
+        spread: 50,
         origin: { y: 0.7 }
       });
     }
   };
 
   return (
-    <section id="contact" className="py-24 relative z-10">
+    <section id="contact" className="py-24 relative z-10 border-t border-[#1A1D24]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-mono font-semibold bg-sky-500/10 text-sky-600 dark:text-sky-400 border border-sky-500/20 mb-4">
-            <Mail className="w-3.5 h-3.5" />
-            <span>Kết nối & Hợp tác</span>
+        <div className="mb-12">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 items-baseline">
+            <h2 className="lg:col-span-7 text-2xl sm:text-3xl lg:text-4xl font-medium tracking-tight text-[#F1F3F5]">
+              Liên hệ Trực tiếp —{' '}
+              <span className="text-[#9BA1AC] font-normal">
+                Sẵn sàng trao đổi cơ hội thực tập và hợp tác chuyên môn.
+              </span>
+            </h2>
+            <p className="lg:col-span-5 text-xs sm:text-sm text-[#6C727F] leading-relaxed">
+              Vui lòng để lại lời nhắn hoặc gửi thư trực tiếp qua email. Tôi sẽ phản hồi nhanh nhất có thể.
+            </p>
           </div>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
-            Liên hệ với Trương Sỹ Tài
-          </h2>
-          <p className="mt-4 text-base sm:text-lg text-slate-600 dark:text-slate-400 leading-relaxed">
-            Tôi luôn sẵn sàng đón nhận những lời mời hợp tác đồ án, trao đổi học thuật hoặc cơ hội thực tập phát triển chuyên môn Dữ liệu.
-          </p>
         </div>
 
         {/* Contact Content Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
           
           {/* Left Column (5 cols): Direct Contact Information */}
           <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="lg:col-span-5 space-y-6"
+            transition={{ duration: 0.35 }}
+            className="lg:col-span-5 space-y-4"
           >
-            <div className="p-7 rounded-2xl bg-white/80 dark:bg-slate-900/70 border border-slate-200 dark:border-slate-800 shadow-sm backdrop-blur-xl">
-              <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-6">
-                Thông tin trực tiếp
+            <div className="p-6 sm:p-7 rounded-2xl border border-[#1A1D24] bg-[#0F1115] shadow-sm">
+              <h3 className="text-sm font-semibold text-[#F1F3F5] mb-5">
+                Kênh liên hệ trực tiếp
               </h3>
 
-              <div className="space-y-6">
+              <div className="space-y-3.5">
                 {/* Email */}
-                <div className="flex items-start space-x-3.5">
-                  <div className="p-2.5 rounded-xl bg-sky-500/10 text-sky-500 mt-0.5">
-                    <Mail className="w-5 h-5" />
+                <div className="flex items-start space-x-3.5 p-4 rounded-xl bg-[#090A0C] border border-[#1A1D24] hover:border-[#262A34] transition-colors">
+                  <div className="w-9 h-9 rounded-lg border border-[#1A1D24] bg-[#14171D] flex items-center justify-center text-[#93C5FD] flex-shrink-0 mt-0.5">
+                    <Mail className="w-4 h-4" />
                   </div>
                   <div>
-                    <p className="text-xs text-slate-500 dark:text-slate-400 font-mono">Email cá nhân</p>
+                    <p className="text-[11px] text-[#6C727F] font-mono">Email cá nhân</p>
                     <a
                       href={`mailto:${personalInfo.email}`}
-                      className="text-sm font-semibold text-slate-800 dark:text-slate-100 hover:text-sky-500 transition-colors"
+                      className="text-xs font-mono font-medium text-[#F1F3F5] hover:text-[#93C5FD] transition-colors"
                     >
                       {personalInfo.email}
                     </a>
-                    <p className="text-[11px] text-slate-400 dark:text-slate-500 mt-0.5">
-                      Phản hồi trong vòng 24 giờ
+                    <p className="text-[10px] text-[#454B54] font-mono mt-0.5">
+                      phản hồi trong 24 giờ
                     </p>
                   </div>
                 </div>
 
                 {/* Phone */}
-                <div className="flex items-start space-x-3.5">
-                  <div className="p-2.5 rounded-xl bg-emerald-500/10 text-emerald-500 mt-0.5">
-                    <Phone className="w-5 h-5" />
+                <div className="flex items-start space-x-3.5 p-4 rounded-xl bg-[#090A0C] border border-[#1A1D24] hover:border-[#262A34] transition-colors">
+                  <div className="w-9 h-9 rounded-lg border border-[#1A1D24] bg-[#14171D] flex items-center justify-center text-[#93C5FD] flex-shrink-0 mt-0.5">
+                    <Phone className="w-4 h-4" />
                   </div>
                   <div>
-                    <p className="text-xs text-slate-500 dark:text-slate-400 font-mono">Số điện thoại</p>
+                    <p className="text-[11px] text-[#6C727F] font-mono">Số điện thoại / Zalo</p>
                     <a
                       href={`tel:${personalInfo.phone.replace(/[^0-9+]/g, '')}`}
-                      className="text-sm font-semibold text-slate-800 dark:text-slate-100 hover:text-emerald-500 transition-colors"
+                      className="text-xs font-mono font-medium text-[#F1F3F5] hover:text-[#93C5FD] transition-colors"
                     >
                       {personalInfo.phone}
                     </a>
-                    <p className="text-[11px] text-slate-400 dark:text-slate-500 mt-0.5">
-                      Hỗ trợ trao đổi công việc & thực tập
+                    <p className="text-[10px] text-[#454B54] font-mono mt-0.5">
+                      hỗ trợ trao đổi công việc
                     </p>
                   </div>
                 </div>
 
                 {/* Location */}
-                <div className="flex items-start space-x-3.5">
-                  <div className="p-2.5 rounded-xl bg-indigo-500/10 text-indigo-500 mt-0.5">
-                    <MapPin className="w-5 h-5" />
+                <div className="flex items-start space-x-3.5 p-4 rounded-xl bg-[#090A0C] border border-[#1A1D24] hover:border-[#262A34] transition-colors">
+                  <div className="w-9 h-9 rounded-lg border border-[#1A1D24] bg-[#14171D] flex items-center justify-center text-[#93C5FD] flex-shrink-0 mt-0.5">
+                    <MapPin className="w-4 h-4" />
                   </div>
                   <div>
-                    <p className="text-xs text-slate-500 dark:text-slate-400 font-mono">Khu vực làm việc</p>
-                    <p className="text-sm font-semibold text-slate-800 dark:text-slate-100">
+                    <p className="text-[11px] text-[#6C727F] font-mono">Khu vực làm việc</p>
+                    <p className="text-xs font-mono font-medium text-[#F1F3F5]">
                       {personalInfo.location}
                     </p>
-                    <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-                      Trường ĐH Sư phạm Kỹ thuật - ĐH Đà Nẵng
+                    <p className="text-[10px] text-[#6C727F] font-mono mt-0.5">
+                      ĐH Sư phạm Kỹ thuật Đà Nẵng
                     </p>
                   </div>
                 </div>
               </div>
 
               {/* Working Hours / Availability Notice */}
-              <div className="mt-8 pt-6 border-t border-slate-200 dark:border-slate-800/80">
-                <div className="flex items-center gap-2 text-xs font-mono text-slate-500 dark:text-slate-400">
-                  <Clock className="w-4 h-4 text-sky-500" />
-                  <span>Thời gian tiếp nhận: 08:00 - 21:00 (Thứ 2 - Thứ 7)</span>
+              <div className="mt-6 pt-5 border-t border-[#1A1D24]">
+                <div className="flex items-center gap-2 text-[11px] font-mono text-[#6C727F]">
+                  <Clock className="w-3.5 h-3.5 text-[#93C5FD]" />
+                  <span>Tiếp nhận: 08:00 - 21:00 (Thứ 2 - Thứ 7)</span>
                 </div>
               </div>
             </div>
           </motion.div>
 
-          {/* Right Column (7 cols): Interactive Contact Form */}
+          {/* Right Column (7 cols): Luxury Contact Form */}
           <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.35, delay: 0.1 }}
             className="lg:col-span-7"
           >
-            <div className="p-7 sm:p-9 rounded-2xl bg-white/80 dark:bg-slate-900/70 border border-slate-200 dark:border-slate-800 shadow-sm backdrop-blur-xl">
-              <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2 flex items-center gap-2">
-                <MessageSquare className="w-5 h-5 text-sky-500" />
+            <div className="p-6 sm:p-7 rounded-2xl border border-[#1A1D24] bg-[#0F1115] shadow-sm">
+              <h3 className="text-sm font-semibold text-[#F1F3F5] mb-1 flex items-center gap-2">
+                <MessageSquare className="w-4 h-4 text-[#93C5FD]" />
                 Gửi tin nhắn trực tiếp
               </h3>
-              <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mb-6">
-                Tin nhắn sẽ được gửi trực tiếp đến hệ thống backend của tôi. Tôi sẽ phản hồi sớm nhất có thể!
+              <p className="text-xs text-[#6C727F] mb-6">
+                Nội dung sẽ được tiếp nhận và xử lý qua hệ thống backend.
               </p>
 
               {/* Status Alert */}
               {status.success && (
-                <div className="mb-6 p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-700 dark:text-emerald-300 flex items-start gap-3 text-sm">
-                  <CheckCircle2 className="w-5 h-5 flex-shrink-0 text-emerald-500 mt-0.5" />
+                <div className="mb-4 p-3.5 rounded-xl bg-[#090A0C] border border-[#34D399]/30 text-[#34D399] flex items-center gap-2.5 text-xs font-mono">
+                  <CheckCircle2 className="w-4 h-4 flex-shrink-0 text-[#34D399]" />
                   <span>{status.message}</span>
                 </div>
               )}
 
               {status.error && (
-                <div className="mb-6 p-4 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-700 dark:text-rose-300 flex items-start gap-3 text-sm">
-                  <AlertCircle className="w-5 h-5 flex-shrink-0 text-rose-500 mt-0.5" />
+                <div className="mb-4 p-3.5 rounded-xl bg-[#090A0C] border border-[#F87171]/30 text-[#F87171] flex items-center gap-2.5 text-xs font-mono">
+                  <AlertCircle className="w-4 h-4 flex-shrink-0 text-[#F87171]" />
                   <span>{status.error}</span>
                 </div>
               )}
 
               <form onSubmit={handleSubmit} className="space-y-4">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                   <div>
-                    <label htmlFor="name" className="block text-xs font-mono font-medium text-slate-700 dark:text-slate-300 mb-1.5">
-                      Họ và tên <span className="text-rose-500">*</span>
+                    <label htmlFor="name" className="block text-[11px] font-mono text-[#6C727F] mb-1.5">
+                      Họ và tên <span className="text-[#F87171]">*</span>
                     </label>
                     <input
                       type="text"
@@ -232,15 +230,15 @@ export const ContactSection = () => {
                       name="name"
                       value={formData.name}
                       onChange={handleChange}
-                      placeholder="Ví dụ: Nguyễn Văn A"
+                      placeholder="Nguyễn Văn A"
                       required
-                      className="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-sm text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-sky-500/40 focus:border-sky-500 transition-colors"
+                      className="w-full px-4 py-2.5 rounded-xl bg-[#090A0C] border border-[#1A1D24] text-xs font-mono text-[#F1F3F5] placeholder-[#454B54] focus:border-[#93C5FD]/50 focus:ring-1 focus:ring-[#93C5FD]/30 outline-none transition-all"
                     />
                   </div>
 
                   <div>
-                    <label htmlFor="email" className="block text-xs font-mono font-medium text-slate-700 dark:text-slate-300 mb-1.5">
-                      Email liên hệ <span className="text-rose-500">*</span>
+                    <label htmlFor="email" className="block text-[11px] font-mono text-[#6C727F] mb-1.5">
+                      Email liên hệ <span className="text-[#F87171]">*</span>
                     </label>
                     <input
                       type="email"
@@ -250,13 +248,13 @@ export const ContactSection = () => {
                       onChange={handleChange}
                       placeholder="email@example.com"
                       required
-                      className="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-sm text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-sky-500/40 focus:border-sky-500 transition-colors"
+                      className="w-full px-4 py-2.5 rounded-xl bg-[#090A0C] border border-[#1A1D24] text-xs font-mono text-[#F1F3F5] placeholder-[#454B54] focus:border-[#93C5FD]/50 focus:ring-1 focus:ring-[#93C5FD]/30 outline-none transition-all"
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label htmlFor="subject" className="block text-xs font-mono font-medium text-slate-700 dark:text-slate-300 mb-1.5">
+                  <label htmlFor="subject" className="block text-[11px] font-mono text-[#6C727F] mb-1.5">
                     Tiêu đề
                   </label>
                   <input
@@ -266,39 +264,40 @@ export const ContactSection = () => {
                     value={formData.subject}
                     onChange={handleChange}
                     placeholder="Chủ đề trao đổi (Đồ án, Thực tập, Hợp tác...)"
-                    className="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-sm text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-sky-500/40 focus:border-sky-500 transition-colors"
+                    className="w-full px-4 py-2.5 rounded-xl bg-[#090A0C] border border-[#1A1D24] text-xs font-mono text-[#F1F3F5] placeholder-[#454B54] focus:border-[#93C5FD]/50 focus:ring-1 focus:ring-[#93C5FD]/30 outline-none transition-all"
                   />
                 </div>
 
                 <div>
-                  <label htmlFor="message" className="block text-xs font-mono font-medium text-slate-700 dark:text-slate-300 mb-1.5">
-                    Nội dung tin nhắn <span className="text-rose-500">*</span>
+                  <label htmlFor="message" className="block text-[11px] font-mono text-[#6C727F] mb-1.5">
+                    Nội dung tin nhắn <span className="text-[#F87171]">*</span>
                   </label>
                   <textarea
                     id="message"
                     name="message"
-                    rows="4"
+                    rows="3"
                     value={formData.message}
                     onChange={handleChange}
                     placeholder="Chia sẻ thông điệp của bạn tại đây..."
                     required
-                    className="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-sm text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-sky-500/40 focus:border-sky-500 transition-colors resize-none"
+                    className="w-full px-4 py-2.5 rounded-xl bg-[#090A0C] border border-[#1A1D24] text-xs font-mono text-[#F1F3F5] placeholder-[#454B54] focus:border-[#93C5FD]/50 focus:ring-1 focus:ring-[#93C5FD]/30 outline-none transition-all resize-none"
                   />
                 </div>
 
+                {/* Solid Luxury Primary Button */}
                 <button
                   type="submit"
                   disabled={status.loading}
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl font-semibold text-sm text-white bg-gradient-to-r from-sky-500 to-indigo-600 hover:from-sky-400 hover:to-indigo-500 shadow-lg shadow-sky-500/25 hover:shadow-sky-500/40 transition-all duration-200 disabled:opacity-50 cursor-pointer"
+                  className="inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-full text-xs font-medium text-[#090A0C] bg-[#F1F3F5] hover:bg-white transition-all disabled:opacity-50 cursor-pointer shadow-sm"
                 >
                   {status.loading ? (
                     <>
-                      <Loader2 className="w-4 h-4 animate-spin" />
-                      <span>Đang gửi tin nhắn...</span>
+                      <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                      <span>Đang truyền dữ liệu...</span>
                     </>
                   ) : (
                     <>
-                      <Send className="w-4 h-4" />
+                      <Send className="w-3.5 h-3.5 text-[#090A0C]" />
                       <span>Gửi tin nhắn</span>
                     </>
                   )}
@@ -314,3 +313,4 @@ export const ContactSection = () => {
   );
 };
 
+export default ContactSection;

@@ -15,7 +15,7 @@ import { Footer } from './components/Footer';
 function App() {
   return (
     <ThemeProvider>
-      <div className="relative min-h-screen bg-background-light dark:bg-background-dark text-slate-800 dark:text-slate-100 transition-colors duration-300 overflow-x-hidden selection:bg-sky-500/30 selection:text-sky-300">
+      <div className="relative min-h-screen bg-[#F7F8FA] dark:bg-[#090A0C] text-[#1A1C20] dark:text-[#F1F3F5] transition-colors duration-200 overflow-x-hidden selection:bg-[#93C5FD]/20 selection:text-[#93C5FD]">
         {/* Dynamic Neural Particles Canvas Background */}
         <BackgroundCanvas />
 

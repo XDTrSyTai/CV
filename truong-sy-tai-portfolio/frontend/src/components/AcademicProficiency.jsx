@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { Database, Cpu, Code2, Server, Languages, Award, CheckCircle2, BarChart3, Radar } from 'lucide-react';
 import { academicProficiency } from '../data/portfolioData';
 
@@ -9,7 +9,6 @@ export const AcademicProficiency = () => {
 
   const activeGroup = academicProficiency.courseGroups.find(g => g.id === activeTab) || academicProficiency.courseGroups[0];
 
-  // Helper icons for tabs
   const getGroupIcon = (id) => {
     switch (id) {
       case 'data-ai': return Database;
@@ -21,9 +20,8 @@ export const AcademicProficiency = () => {
     }
   };
 
-  // Custom SVG Radar Chart Calculation
   const radarPoints = academicProficiency.radarData;
-  const size = 320;
+  const size = 300;
   const center = size / 2;
   const radius = size * 0.38;
   const totalAxes = radarPoints.length;
@@ -45,44 +43,44 @@ export const AcademicProficiency = () => {
     .join(' ');
 
   return (
-    <div className="mt-16 pt-16 border-t border-slate-200 dark:border-slate-800">
+    <div className="mt-16 pt-14 border-t border-[#1A1D24]">
       
       {/* Title & View Switcher */}
-      <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-10">
+      <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 mb-8">
         <div>
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-semibold bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border border-indigo-500/20 mb-2">
-            <Award className="w-3.5 h-3.5" />
-            <span>Chương trình Đào tạo CNTT - ĐH SPKT Đà Nẵng</span>
+          <div className="flex items-center gap-2 mb-1.5">
+            <Award className="w-3.5 h-3.5 text-[#93C5FD]" />
+            <p className="text-xs font-mono text-[#9BA1AC]">
+              Chương trình đào tạo chính quy — ĐH SPKT Đà Nẵng
+            </p>
           </div>
-          <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white">
-            Academic Proficiency (Trình độ Chuyên môn)
+          <h3 className="text-xl sm:text-2xl font-medium tracking-tight text-[#F1F3F5]">
+            Năng lực Học thuật —{' '}
+            <span className="text-[#9BA1AC]">Kết quả học phần & Đánh giá chuyên môn</span>
           </h3>
-          <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">
-            Tổng hợp kết quả và năng lực qua các khối kiến thức tiêu biểu trong chương trình đào tạo.
-          </p>
         </div>
 
         {/* View Switcher Toggle */}
-        <div className="flex items-center p-1 rounded-xl bg-slate-200/80 dark:bg-slate-900/90 border border-slate-300 dark:border-slate-800 text-xs font-mono">
+        <div className="flex items-center p-1 rounded-full bg-[#0F1115] border border-[#1A1D24] text-xs font-mono">
           <button
             onClick={() => setViewMode('bars')}
             type="button"
-            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-all cursor-pointer ${
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full transition-colors cursor-pointer ${
               viewMode === 'bars'
-                ? 'bg-white dark:bg-slate-800 text-sky-600 dark:text-sky-400 shadow-sm font-bold'
-                : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                ? 'bg-[#14171D] text-[#93C5FD] border border-[#262A34] font-medium'
+                : 'text-[#6C727F] hover:text-[#F1F3F5]'
             }`}
           >
             <BarChart3 className="w-3.5 h-3.5" />
-            <span>Tiến trình môn học</span>
+            <span>Tiến trình học phần</span>
           </button>
           <button
             onClick={() => setViewMode('radar')}
             type="button"
-            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-all cursor-pointer ${
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full transition-colors cursor-pointer ${
               viewMode === 'radar'
-                ? 'bg-white dark:bg-slate-800 text-sky-600 dark:text-sky-400 shadow-sm font-bold'
-                : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                ? 'bg-[#14171D] text-[#93C5FD] border border-[#262A34] font-medium'
+                : 'text-[#6C727F] hover:text-[#F1F3F5]'
             }`}
           >
             <Radar className="w-3.5 h-3.5" />
@@ -92,10 +90,10 @@ export const AcademicProficiency = () => {
       </div>
 
       {viewMode === 'bars' ? (
-        /* View 1: Tabbed Categories with Progress Bars */
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        /* View 1: Tabbed Categories with Hairline Progress Tracks */
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
           
-          {/* Category Tabs (5 columns) */}
+          {/* Category Tabs (4 columns) */}
           <div className="lg:col-span-4 flex flex-col space-y-2">
             {academicProficiency.courseGroups.map((group) => {
               const IconComp = getGroupIcon(group.id);
@@ -105,67 +103,67 @@ export const AcademicProficiency = () => {
                   key={group.id}
                   onClick={() => setActiveTab(group.id)}
                   type="button"
-                  className={`w-full text-left p-4 rounded-xl border transition-all duration-200 cursor-pointer flex items-center justify-between ${
+                  className={`w-full text-left p-3.5 rounded-xl border transition-colors cursor-pointer flex items-center justify-between ${
                     isSelected
-                      ? 'bg-gradient-to-r from-sky-500/10 to-indigo-500/10 border-sky-500/40 shadow-sm dark:bg-slate-900/90'
-                      : 'bg-white/60 dark:bg-slate-900/40 border-slate-200 dark:border-slate-800/80 hover:bg-slate-50 dark:hover:bg-slate-800/50'
+                      ? 'bg-[#14171D] border-[#262A34] text-[#93C5FD]'
+                      : 'bg-[#0F1115] border-[#1A1D24] hover:border-[#262A34] text-[#9BA1AC]'
                   }`}
                 >
                   <div className="flex items-center space-x-3">
-                    <div className={`p-2 rounded-lg ${isSelected ? 'bg-sky-500 text-white' : 'bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400'}`}>
-                      <IconComp className="w-4 h-4" />
+                    <div className={`p-2 rounded-lg ${isSelected ? 'bg-[#1A1D24] text-[#93C5FD]' : 'bg-[#090A0C] text-[#6C727F]'}`}>
+                      <IconComp className="w-3.5 h-3.5" />
                     </div>
                     <div>
-                      <p className={`text-sm font-bold ${isSelected ? 'text-sky-600 dark:text-sky-400' : 'text-slate-700 dark:text-slate-200'}`}>
+                      <p className={`text-xs font-semibold ${isSelected ? 'text-[#F1F3F5]' : 'text-[#9BA1AC]'}`}>
                         {group.name}
                       </p>
-                      <p className="text-[11px] text-slate-500 dark:text-slate-400">
-                        {group.courses.length} học phần tiêu biểu
+                      <p className="text-[11px] text-[#6C727F]">
+                        {group.courses.length} môn học tiêu biểu
                       </p>
                     </div>
                   </div>
-                  {isSelected && <CheckCircle2 className="w-4 h-4 text-sky-500" />}
+                  {isSelected && <CheckCircle2 className="w-3.5 h-3.5 text-[#93C5FD]" />}
                 </button>
               );
             })}
           </div>
 
           {/* Courses Progress Bars Details (8 columns) */}
-          <div className="lg:col-span-8 p-6 sm:p-7 rounded-2xl bg-white/80 dark:bg-slate-900/70 border border-slate-200 dark:border-slate-800 shadow-sm backdrop-blur-xl">
-            <div className="border-b border-slate-200 dark:border-slate-800 pb-4 mb-6">
-              <h4 className="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
+          <div className="lg:col-span-8 p-6 rounded-xl bg-[#0F1115] border border-[#1A1D24]">
+            <div className="border-b border-[#1A1D24] pb-3.5 mb-5">
+              <h4 className="text-sm font-semibold text-[#F1F3F5]">
                 {activeGroup.name}
               </h4>
-              <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+              <p className="text-xs text-[#6C727F] mt-0.5">
                 {activeGroup.description}
               </p>
             </div>
 
-            <div className="space-y-6">
+            <div className="space-y-4">
               {activeGroup.courses.map((course, idx) => (
-                <div key={idx} className="space-y-2">
-                  <div className="flex items-center justify-between text-xs sm:text-sm">
+                <div key={idx} className="space-y-1.5">
+                  <div className="flex items-center justify-between text-xs">
                     <div className="flex items-center space-x-2">
-                      <span className="font-semibold text-slate-800 dark:text-slate-200">{course.name}</span>
-                      <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400">
+                      <span className="text-[#F1F3F5] font-medium">{course.name}</span>
+                      <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-[#14171D] text-[#6C727F] border border-[#1A1D24]">
                         {course.credit}
                       </span>
                     </div>
                     <div className="flex items-center space-x-2 font-mono">
-                      <span className="text-[11px] px-2 py-0.5 rounded-full bg-sky-500/10 text-sky-600 dark:text-sky-400 font-medium">
+                      <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#14171D] text-[#93C5FD] border border-[#1A1D24]">
                         {course.status}
                       </span>
-                      <span className="font-bold text-slate-900 dark:text-white">{course.score}%</span>
+                      <span className="text-[#F1F3F5] font-semibold">{course.score}%</span>
                     </div>
                   </div>
 
-                  {/* Progress Track */}
-                  <div className="h-2.5 w-full bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden p-[1px]">
+                  {/* Hairline Progress Track */}
+                  <div className="h-[2.5px] w-full bg-[#1A1D24] rounded-full overflow-hidden">
                     <motion.div
                       initial={{ width: 0 }}
                       animate={{ width: `${course.score}%` }}
-                      transition={{ duration: 0.8, delay: idx * 0.1, ease: 'easeOut' }}
-                      className="h-full rounded-full bg-gradient-to-r from-sky-500 via-indigo-500 to-cyan-400"
+                      transition={{ duration: 0.5, delay: idx * 0.04, ease: 'easeOut' }}
+                      className="h-full bg-[#93C5FD]"
                     />
                   </div>
                 </div>
@@ -176,21 +174,14 @@ export const AcademicProficiency = () => {
 
         </div>
       ) : (
-        /* View 2: High-Tech Interactive Radar Chart */
-        <div className="p-6 sm:p-8 rounded-2xl bg-white/80 dark:bg-slate-900/70 border border-slate-200 dark:border-slate-800 shadow-sm backdrop-blur-xl">
+        /* View 2: Wireframe Radar Chart */
+        <div className="p-6 sm:p-8 rounded-xl bg-[#0F1115] border border-[#1A1D24]">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
             
             {/* SVG Radar Visual */}
             <div className="md:col-span-7 flex justify-center">
               <div className="relative">
                 <svg width={size} height={size} className="overflow-visible">
-                  <defs>
-                    <radialGradient id="radarGlow" cx="50%" cy="50%" r="50%">
-                      <stop offset="0%" stop-color="#38BDF8" stop-opacity="0.3" />
-                      <stop offset="100%" stop-color="#818CF8" stop-opacity="0.05" />
-                    </radialGradient>
-                  </defs>
-
                   {/* Concentric Grid Circles */}
                   {[0.25, 0.5, 0.75, 1].map((scale, i) => (
                     <circle
@@ -199,8 +190,8 @@ export const AcademicProficiency = () => {
                       cy={center}
                       r={radius * scale}
                       fill="none"
-                      stroke="currentColor"
-                      className="text-slate-300 dark:text-slate-800"
+                      stroke="#1A1D24"
+                      strokeWidth="1"
                       strokeDasharray={scale === 1 ? 'none' : '3 3'}
                     />
                   ))}
@@ -215,67 +206,51 @@ export const AcademicProficiency = () => {
                         y1={center}
                         x2={outer.x}
                         y2={outer.y}
-                        stroke="currentColor"
-                        className="text-slate-300 dark:text-slate-800"
+                        stroke="#1A1D24"
+                        strokeWidth="1"
                       />
                     );
                   })}
 
-                  {/* Filled Data Polygon */}
+                  {/* Radar Polygon */}
                   <polygon
                     points={polygonPointsString}
-                    fill="url(#radarGlow)"
-                    stroke="#38BDF8"
-                    strokeWidth="2.5"
-                    className="transition-all duration-700"
+                    fill="rgba(147, 197, 253, 0.1)"
+                    stroke="#93C5FD"
+                    strokeWidth="1.5"
                   />
 
-                  {/* Data Points and Outer Labels */}
+                  {/* Axis Data Points */}
                   {radarPoints.map((point, i) => {
                     const coords = getCoordinates(point.score, i);
-                    const labelCoords = getCoordinates(120, i);
                     return (
-                      <g key={i}>
-                        <circle
-                          cx={coords.x}
-                          cy={coords.y}
-                          r="5"
-                          fill="#38BDF8"
-                          stroke="#FFFFFF"
-                          strokeWidth="2"
-                        />
-                        <text
-                          x={labelCoords.x}
-                          y={labelCoords.y}
-                          textAnchor="middle"
-                          dominantBaseline="central"
-                          className="text-[11px] font-mono font-bold fill-slate-700 dark:fill-slate-300"
-                        >
-                          {point.subject}
-                        </text>
-                      </g>
+                      <circle
+                        key={i}
+                        cx={coords.x}
+                        cy={coords.y}
+                        r="3"
+                        fill="#93C5FD"
+                        stroke="#090A0C"
+                        strokeWidth="1"
+                      />
                     );
                   })}
                 </svg>
               </div>
             </div>
 
-            {/* Radar Legend and Interpretation */}
-            <div className="md:col-span-5 space-y-4">
-              <div className="p-4 rounded-xl bg-sky-500/10 border border-sky-500/20">
-                <p className="text-xs font-mono font-semibold text-sky-600 dark:text-sky-400 mb-1">
-                  ĐIỂM NHẤN NĂNG LỰC
-                </p>
-                <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed">
-                  Trọng tâm cao nhất đạt ở mảng <strong className="text-sky-500">Dữ liệu & AI (92%)</strong> và <strong className="text-indigo-400">Cơ sở Thuật toán (88%)</strong>, tạo tiền đề vững chắc cho con đường Data Specialist.
-                </p>
+            {/* Radar Legend & Scores */}
+            <div className="md:col-span-5 space-y-2.5">
+              <div className="pb-3 border-b border-[#1A1D24]">
+                <h4 className="text-xs font-mono font-semibold uppercase tracking-wider text-[#F1F3F5]">
+                  Năng lực tổng hợp // 6 Trọng tâm
+                </h4>
               </div>
-
-              <div className="space-y-2 font-mono text-xs">
+              <div className="space-y-2">
                 {radarPoints.map((item, idx) => (
-                  <div key={idx} className="flex items-center justify-between p-2 rounded-lg bg-slate-100/60 dark:bg-slate-800/50">
-                    <span className="text-slate-700 dark:text-slate-300">{item.subject}</span>
-                    <span className="font-bold text-sky-600 dark:text-sky-400">{item.score}/100</span>
+                  <div key={idx} className="flex items-center justify-between text-xs font-mono p-2.5 rounded-lg bg-[#090A0C] border border-[#1A1D24]">
+                    <span className="text-[#9BA1AC]">{item.subject}</span>
+                    <span className="text-[#93C5FD] font-semibold">{item.score}%</span>
                   </div>
                 ))}
               </div>
@@ -289,3 +264,4 @@ export const AcademicProficiency = () => {
   );
 };
 
+export default AcademicProficiency;

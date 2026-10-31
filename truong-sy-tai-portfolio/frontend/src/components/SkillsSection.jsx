@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Code, Users, Presentation, BrainCircuit, Terminal, Sparkles, CheckCircle } from 'lucide-react';
+import { Users, Presentation, BrainCircuit, Terminal, Sparkles, CheckCircle2 } from 'lucide-react';
 import { programmingLanguages, softSkills } from '../data/portfolioData';
 import { AcademicProficiency } from './AcademicProficiency';
 
@@ -15,66 +15,74 @@ export const SkillsSection = () => {
   };
 
   return (
-    <section id="skills" className="py-24 relative z-10 bg-slate-50/50 dark:bg-slate-950/30">
+    <section id="skills" className="py-24 relative z-10 border-t border-[#1A1D24]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-mono font-semibold bg-sky-500/10 text-sky-600 dark:text-sky-400 border border-sky-500/20 mb-4">
-            <Code className="w-3.5 h-3.5" />
-            <span>Kỹ năng & Năng lực Công nghệ</span>
+        <div className="mb-14">
+          <div className="flex items-center gap-2 mb-3">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#93C5FD]" />
+            <p className="text-xs font-mono text-[#9BA1AC] tracking-wide">
+              Trình độ & Năng lực Công nghệ
+            </p>
           </div>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
-            Ngôn ngữ Lập trình & Kỹ năng
-          </h2>
-          <p className="mt-4 text-base sm:text-lg text-slate-600 dark:text-slate-400 leading-relaxed">
-            Hệ thống kỹ năng được tích lũy thông qua các đồ án thực hành và môn học chuyên sâu tại ĐH Sư phạm Kỹ thuật Đà Nẵng.
-          </p>
+
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-baseline">
+            <h2 className="lg:col-span-7 text-2xl sm:text-3xl lg:text-4xl font-medium tracking-tight text-[#F1F3F5]">
+              Kỹ năng & Chuyên môn Kỹ thuật —{' '}
+              <span className="text-[#9BA1AC]">
+                Nền tảng phân tích dữ liệu, lập trình hệ thống và tư duy giải thuật.
+              </span>
+            </h2>
+            <p className="lg:col-span-5 text-xs sm:text-sm text-[#6C727F] leading-relaxed">
+              Tổng hợp các ngôn ngữ lập trình chủ lực và kỹ năng thực hành được trau dồi qua các đồ án thực nghiệm tại trường đại học.
+            </p>
+          </div>
         </div>
 
         {/* 1. Programming Languages Grid */}
         <div className="mb-14">
-          <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-2">
-            <Terminal className="w-5 h-5 text-sky-500" />
-            Ngôn ngữ lập trình đang học & sử dụng
-          </h3>
+          <div className="flex items-center gap-2 mb-4 text-xs font-mono text-[#9BA1AC]">
+            <Terminal className="w-3.5 h-3.5 text-[#93C5FD]" />
+            <span className="uppercase tracking-wider font-semibold">Ngôn ngữ Lập trình & Cơ sở Dữ liệu</span>
+          </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5">
             {programmingLanguages.map((lang, index) => (
               <motion.div
                 key={lang.name}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 15 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: index * 0.08 }}
-                className="p-6 rounded-2xl bg-white/80 dark:bg-slate-900/70 border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md hover:border-sky-500/30 transition-all duration-300 backdrop-blur-xl group"
+                transition={{ duration: 0.35, delay: index * 0.04 }}
+                className="p-5 rounded-xl border border-[#1A1D24] bg-[#0F1115] hover:border-[#262A34] transition-all"
               >
-                <div className="flex items-center justify-between mb-3">
-                  <h4 className="text-lg font-bold text-slate-900 dark:text-white group-hover:text-sky-500 transition-colors">
+                <div className="flex items-center justify-between mb-2">
+                  <h4 className="text-sm font-semibold font-mono text-[#F1F3F5]">
                     {lang.name}
                   </h4>
-                  <span className="text-[11px] font-mono px-2.5 py-1 rounded-full bg-sky-500/10 text-sky-600 dark:text-sky-400 font-semibold border border-sky-500/20">
+                  <span className="text-[11px] font-mono px-2 py-0.5 rounded border border-[#1A1D24] bg-[#14171D] text-[#93C5FD]">
                     {lang.badge}
                   </span>
                 </div>
 
-                <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed min-h-[36px] mb-4">
+                <p className="text-xs text-[#9BA1AC] leading-relaxed min-h-[34px] mb-4">
                   {lang.role}
                 </p>
 
-                {/* Progress bar */}
-                <div className="space-y-1.5 font-mono">
-                  <div className="flex justify-between text-xs text-slate-500 dark:text-slate-400">
+                {/* Technical Hairline Progress Bar */}
+                <div className="space-y-1 font-mono">
+                  <div className="flex justify-between text-[11px] text-[#6C727F]">
                     <span>Mức độ tự tin</span>
-                    <span className="font-semibold text-slate-800 dark:text-slate-200">{lang.level}%</span>
+                    <span className="text-[#F1F3F5] font-medium">{lang.level}%</span>
                   </div>
-                  <div className="h-2 w-full bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
+                  <div className="h-[2.5px] w-full bg-[#1A1D24] rounded-full overflow-hidden">
                     <motion.div
                       initial={{ width: 0 }}
                       whileInView={{ width: `${lang.level}%` }}
                       viewport={{ once: true }}
-                      transition={{ duration: 0.7, delay: index * 0.05 }}
-                      className={`h-full rounded-full bg-gradient-to-r ${lang.color}`}
+                      transition={{ duration: 0.6, delay: index * 0.04 }}
+                      className="h-full bg-[#93C5FD]"
                     />
                   </div>
                 </div>
@@ -85,12 +93,12 @@ export const SkillsSection = () => {
 
         {/* 2. Soft Skills Row */}
         <div>
-          <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-2">
-            <Users className="w-5 h-5 text-indigo-500" />
-            Kỹ năng mềm thiết yếu (Môn Kỹ năng giao tiếp & Làm việc nhóm)
-          </h3>
+          <div className="flex items-center gap-2 mb-4 text-xs font-mono text-[#9BA1AC]">
+            <Users className="w-3.5 h-3.5 text-[#93C5FD]" />
+            <span className="uppercase tracking-wider font-semibold">Kỹ năng mềm & Làm việc Chuyên nghiệp</span>
+          </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-3.5">
             {softSkills.map((skill, idx) => {
               const IconComp = getSoftSkillIcon(skill.iconName);
               return (
@@ -99,25 +107,31 @@ export const SkillsSection = () => {
                   initial={{ opacity: 0, y: 15 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: idx * 0.1 }}
-                  className="p-6 rounded-2xl bg-white/80 dark:bg-slate-900/70 border border-slate-200 dark:border-slate-800 shadow-sm backdrop-blur-xl"
+                  transition={{ duration: 0.35, delay: idx * 0.04 }}
+                  className="p-5 rounded-xl border border-[#1A1D24] bg-[#0F1115] hover:border-[#262A34] transition-all"
                 >
-                  <div className="p-3 w-fit rounded-xl bg-indigo-500/10 text-indigo-500 mb-4">
-                    <IconComp className="w-6 h-6" />
+                  <div className="flex items-center gap-2.5 mb-2.5">
+                    <div className="w-8 h-8 rounded-lg bg-[#14171D] border border-[#1A1D24] flex items-center justify-center text-[#93C5FD]">
+                      <IconComp className="w-4 h-4" />
+                    </div>
+                    <h4 className="text-sm font-semibold text-[#F1F3F5]">
+                      {skill.title}
+                    </h4>
                   </div>
-                  <h4 className="text-base font-bold text-slate-900 dark:text-white mb-2">
-                    {skill.title}
-                  </h4>
-                  <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+                  <p className="text-xs text-[#9BA1AC] leading-relaxed mb-3.5">
                     {skill.description}
                   </p>
+                  <div className="pt-2.5 border-t border-[#1A1D24] flex items-center gap-1.5 text-[11px] font-mono text-[#6C727F]">
+                    <CheckCircle2 className="w-3 h-3 text-[#93C5FD]" />
+                    <span>Hoàn thành học phần đạt chuẩn</span>
+                  </div>
                 </motion.div>
               );
             })}
           </div>
         </div>
 
-        {/* 3. Academic Proficiency (Mandatory requirement with radar chart & course categories) */}
+        {/* 3. Academic Proficiency Section */}
         <AcademicProficiency />
 
       </div>
@@ -125,3 +139,4 @@ export const SkillsSection = () => {
   );
 };
 
+export default SkillsSection;
