@@ -39,6 +39,7 @@
   .text-\[\#7B818B\],
   .text-\[\#93C5FD\],
   .text-\[\#82AAFF\],
+  .text-temonz,
   button,
   a,
   input,
@@ -249,6 +250,14 @@ html.dark .text-\[\#82AAFF\] {
 html:not(.dark) .text-\[\#93C5FD\],
 html:not(.dark) .text-\[\#82AAFF\] {
   color: #2563EB !important;
+}
+
+/* Custom TemonZ highlight (xanh nhạt thanh lịch) */
+html.dark .text-temonz {
+  color: #BAE6FD !important;
+}
+html:not(.dark) .text-temonz {
+  color: #0284C7 !important;
 }
 
 html.dark .bg-\[\#93C5FD\],

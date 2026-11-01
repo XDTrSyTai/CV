@@ -84,8 +84,10 @@ export const Navbar = () => {
               <p className="text-xs font-medium tracking-tight text-[#F1F3F5] group-hover:text-[#93C5FD] transition-colors">
                 Trương Sỹ Tài
               </p>
-              <p className="text-[11px] font-mono text-[#6C727F]">
-                Future Data Specialist
+              <p className="text-[11px] font-mono tracking-tight text-[#93C5FD] transition-colors font-medium">
+                <span className="opacity-60">&lt;</span> Developer{' '}
+                <span className="text-temonz font-semibold">TemonZ</span>{' '}
+                <span className="opacity-60">/&gt;</span>
               </p>
             </div>
           </a>
