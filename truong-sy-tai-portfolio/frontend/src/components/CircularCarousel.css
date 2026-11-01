@@ -116,6 +116,7 @@
 .circular-carousel__shade {
   background: var(--cc-fade);
   opacity: var(--cc-depth, 0);
+  transition: background 300ms ease;
 }
 
 .circular-carousel__inner {

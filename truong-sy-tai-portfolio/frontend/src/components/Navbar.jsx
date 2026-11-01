@@ -13,6 +13,9 @@ const navItems = [
   { label: 'Liên hệ', href: '#contact' },
 ];
 
+const DARK_NAV_COLORS = ['#93C5FD', '#BFDBFE', '#E2E8F0'];
+const LIGHT_NAV_COLORS = ['#2563EB', '#60A5FA', '#93C5FD'];
+
 export const Navbar = () => {
   const { isDark } = useTheme();
   const [isScrolled, setIsScrolled] = useState(false);
@@ -95,7 +98,7 @@ export const Navbar = () => {
               onChange={handleNavChange}
               theme={isDark ? 'dark' : 'light'}
               color={isDark ? '#93C5FD' : '#2563EB'}
-              colors={isDark ? ['#93C5FD', '#BFDBFE', '#E2E8F0'] : ['#2563EB', '#60A5FA', '#93C5FD']}
+              colors={isDark ? DARK_NAV_COLORS : LIGHT_NAV_COLORS}
               activeTextColor={isDark ? '#090A0C' : '#FFFFFF'}
               size="sm"
               frame={true}

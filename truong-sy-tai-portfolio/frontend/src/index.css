@@ -3,40 +3,62 @@
 @tailwind utilities;
 
 @layer base {
-  html {
+  html,
+  body {
     scroll-behavior: smooth;
+    transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1),
+                color 250ms cubic-bezier(0.4, 0, 0.2, 1);
   }
 
-  html.dark,
-  html.dark body {
-    background-color: #090A0C;
-    color: #F1F3F5;
-  }
-
-  html:not(.dark),
-  html:not(.dark) body {
-    background-color: #F8F9FA;
-    color: #0F172A;
-  }
-
-  /* ---- SMOOTH THEME TRANSITION (300ms) ----
-     Only transitions color, background, border, fill, stroke, and shadow.
-     transform and geometry are excluded to preserve 60fps animations.
+  /* ---- ULTRA-LIGHTWEIGHT THEME TRANSITION (250ms) ----
+     Only targets elements that actually change color.
+     Excludes box-shadow, transform, filter, SVGs, and animations
+     to maintain locked 60fps without CPU rasterization stutter.
   */
-  *,
-  *::before,
-  *::after {
-    transition-property: background-color, border-color, color, fill, stroke, box-shadow;
-    transition-duration: 300ms;
+  html,
+  body,
+  header,
+  footer,
+  nav,
+  main,
+  section,
+  .bg-\[\#0F1115\],
+  .bg-\[\#101216\],
+  .bg-\[\#14171D\],
+  .bg-\[\#16181D\],
+  .bg-\[\#0D0E11\],
+  .bg-\[\#090A0C\],
+  .border-\[\#1A1D24\],
+  .border-\[\#1E2127\],
+  .border-\[\#262A34\],
+  .border-\[\#2A2E37\],
+  .text-\[\#F1F3F5\],
+  .text-\[\#E6E8EB\],
+  .text-\[\#9BA1AC\],
+  .text-\[\#6C727F\],
+  .text-\[\#7B818B\],
+  .text-\[\#93C5FD\],
+  .text-\[\#82AAFF\],
+  button,
+  a,
+  input,
+  textarea {
+    transition-property: background-color, border-color, color;
+    transition-duration: 250ms;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   }
 
+  /* Explicitly prevent transition overhead on heavy / animated elements */
+  svg,
+  svg *,
+  canvas,
   img,
   video,
-  canvas,
   [data-framer-component-type],
-  .no-theme-transition {
-    transition-property: none;
+  [data-framer-name],
+  .circular-carousel,
+  .circular-carousel * {
+    transition-property: none !important;
   }
 
   /* Focus visible accessibility */
@@ -48,7 +70,7 @@
     outline-color: #93C5FD;
   }
 
-  /* Minimalist scrollbars */
+  /* Scrollbars */
   ::-webkit-scrollbar {
     width: 6px;
     height: 6px;
@@ -77,18 +99,46 @@
 }
 
 /* ============================================================
-   LIGHT MODE HARMONIZATION (html:not(.dark))
-   Transforms dark surfaces, text, cards, and borders into clean,
-   high-contrast, executive light mode equivalents.
+   SYMMETRICAL DUAL-THEME COLOR SYSTEM
    ============================================================ */
 
-/* 1. Main Backgrounds */
+/* CSS Variables for 3D Carousel & Components */
+html.dark {
+  --cc-theme-fade: #090A0C;
+}
+html:not(.dark) {
+  --cc-theme-fade: #F8F9FA;
+}
+
+/* 1. Page Canvas Background */
+html.dark,
+html.dark body {
+  background-color: #090A0C !important;
+  color: #F1F3F5 !important;
+}
+html:not(.dark),
+html:not(.dark) body {
+  background-color: #F8F9FA !important;
+  color: #0F172A !important;
+}
+
+html.dark .bg-\[\#090A0C\],
+html.dark .bg-\[\#0A0B0D\] {
+  background-color: #090A0C !important;
+}
 html:not(.dark) .bg-\[\#090A0C\],
 html:not(.dark) .bg-\[\#0A0B0D\] {
   background-color: #F8F9FA !important;
 }
 
-/* 2. Card Surfaces (clean white + soft elevation shadow) */
+/* 2. Card Surfaces (Static shadows, NO CPU transition on box-shadow!) */
+html.dark .bg-\[\#0F1115\],
+html.dark .bg-\[\#101216\],
+html.dark .terminal-surface,
+html.dark .terminal-inner {
+  background-color: #0F1115 !important;
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.4);
+}
 html:not(.dark) .bg-\[\#0F1115\],
 html:not(.dark) .bg-\[\#101216\],
 html:not(.dark) .terminal-surface,
@@ -98,6 +148,13 @@ html:not(.dark) .terminal-inner {
 }
 
 /* 3. Sub-surfaces & Elevated Containers */
+html.dark .bg-\[\#14171D\],
+html.dark .bg-\[\#16181D\],
+html.dark .bg-\[\#0D0E11\],
+html.dark .terminal-elevated,
+html.dark .terminal-frame {
+  background-color: #14171D !important;
+}
 html:not(.dark) .bg-\[\#14171D\],
 html:not(.dark) .bg-\[\#16181D\],
 html:not(.dark) .bg-\[\#0D0E11\],
@@ -107,15 +164,27 @@ html:not(.dark) .terminal-frame {
 }
 
 /* 4. Navbar Header when Scrolled */
+html.dark header.bg-\[\#090A0C\]\/85,
+html.dark .bg-\[\#090A0C\]\/85 {
+  background-color: rgba(9, 10, 12, 0.88) !important;
+}
 html:not(.dark) header.bg-\[\#090A0C\]\/85,
 html:not(.dark) .bg-\[\#090A0C\]\/85 {
   background-color: rgba(248, 249, 250, 0.90) !important;
+}
+html.dark .bg-\[\#090A0C\]\/90 {
+  background-color: rgba(9, 10, 12, 0.90) !important;
 }
 html:not(.dark) .bg-\[\#090A0C\]\/90 {
   background-color: rgba(15, 23, 42, 0.65) !important;
 }
 
 /* 5. Hairline Borders */
+html.dark .border-\[\#1A1D24\],
+html.dark .border-\[\#1E2127\],
+html.dark .border-hairline {
+  border-color: #1A1D24 !important;
+}
 html:not(.dark) .border-\[\#1A1D24\],
 html:not(.dark) .border-\[\#1E2127\],
 html:not(.dark) .border-hairline {
@@ -123,6 +192,12 @@ html:not(.dark) .border-hairline {
 }
 
 /* 6. Hover & Elevated Borders */
+html.dark .border-\[\#262A34\],
+html.dark .border-\[\#2A2E37\],
+html.dark .hover\:border-\[\#262A34\]:hover,
+html.dark .hover\:border-\[\#2A2E37\]:hover {
+  border-color: #262A34 !important;
+}
 html:not(.dark) .border-\[\#262A34\],
 html:not(.dark) .border-\[\#2A2E37\],
 html:not(.dark) .hover\:border-\[\#262A34\]:hover,
@@ -130,32 +205,55 @@ html:not(.dark) .hover\:border-\[\#2A2E37\]:hover {
   border-color: #CBD5E1 !important;
 }
 
-/* 7. Primary Text (Titles, Headings h1/h2/h3) -> Deep Slate 900 (WCAG AAA 15.6:1) */
+/* 7. Primary Text (Titles, Headings h1/h2/h3) */
+html.dark .text-\[\#F1F3F5\],
+html.dark .text-\[\#E6E8EB\] {
+  color: #F1F3F5 !important;
+}
 html:not(.dark) .text-\[\#F1F3F5\],
 html:not(.dark) .text-\[\#E6E8EB\] {
   color: #0F172A !important;
 }
 
-/* 8. Secondary Text (Descriptions, Paragraphs) -> Slate 700 (WCAG AAA 9.2:1) */
+/* 8. Secondary Text (Descriptions, Paragraphs) */
+html.dark .text-\[\#9BA1AC\] {
+  color: #9BA1AC !important;
+}
 html:not(.dark) .text-\[\#9BA1AC\] {
   color: #334155 !important;
 }
 
-/* 9. Muted Text (Metadata, Dates, Captions) -> Slate 500 (WCAG AA 4.6:1) */
+/* 9. Muted Text (Metadata, Dates, Captions) */
+html.dark .text-\[\#6C727F\],
+html.dark .text-\[\#7B818B\] {
+  color: #6C727F !important;
+}
 html:not(.dark) .text-\[\#6C727F\],
 html:not(.dark) .text-\[\#7B818B\] {
   color: #64748B !important;
 }
 
-/* 10. Disabled / Tertiary Text -> Slate 400 */
+/* 10. Disabled / Tertiary Text */
+html.dark .text-\[\#454B54\] {
+  color: #454B54 !important;
+}
 html:not(.dark) .text-\[\#454B54\] {
   color: #94A3B8 !important;
 }
 
-/* 11. Accent Colors -> Vibrant Royal Blue (#2563EB) */
+/* 11. Accent Colors */
+html.dark .text-\[\#93C5FD\],
+html.dark .text-\[\#82AAFF\] {
+  color: #93C5FD !important;
+}
 html:not(.dark) .text-\[\#93C5FD\],
 html:not(.dark) .text-\[\#82AAFF\] {
   color: #2563EB !important;
+}
+
+html.dark .bg-\[\#93C5FD\],
+html.dark .bg-\[\#82AAFF\] {
+  background-color: #93C5FD !important;
 }
 html:not(.dark) .bg-\[\#93C5FD\],
 html:not(.dark) .bg-\[\#82AAFF\] {
@@ -163,16 +261,33 @@ html:not(.dark) .bg-\[\#82AAFF\] {
 }
 
 /* 12. Primary CTA Buttons (e.g. "Liên hệ hợp tác", submit buttons, navbar CTA) */
-/* In dark: bg-[#F1F3F5] text-[#090A0C] -> In light: bg-[#0F172A] text-[#FFFFFF] */
+html.dark a.bg-\[\#F1F3F5\],
+html.dark button.bg-\[\#F1F3F5\] {
+  background-color: #F1F3F5 !important;
+  color: #090A0C !important;
+  border-color: #F1F3F5 !important;
+}
 html:not(.dark) a.bg-\[\#F1F3F5\],
 html:not(.dark) button.bg-\[\#F1F3F5\] {
   background-color: #0F172A !important;
   color: #FFFFFF !important;
   border-color: #0F172A !important;
 }
+
+html.dark a.bg-\[\#F1F3F5\]:hover,
+html.dark button.bg-\[\#F1F3F5\]:hover {
+  background-color: #FFFFFF !important;
+}
 html:not(.dark) a.bg-\[\#F1F3F5\]:hover,
 html:not(.dark) button.bg-\[\#F1F3F5\]:hover {
   background-color: #1E293B !important;
+}
+
+html.dark a.bg-\[\#F1F3F5\] svg,
+html.dark button.bg-\[\#F1F3F5\] svg,
+html.dark a.bg-\[\#F1F3F5\] span,
+html.dark button.bg-\[\#F1F3F5\] span {
+  color: #090A0C !important;
 }
 html:not(.dark) a.bg-\[\#F1F3F5\] svg,
 html:not(.dark) button.bg-\[\#F1F3F5\] svg,
@@ -182,11 +297,23 @@ html:not(.dark) button.bg-\[\#F1F3F5\] span {
 }
 
 /* 13. Secondary Buttons (e.g. "Tải CV cá nhân", "Lên đầu trang") */
+html.dark button.bg-\[\#0F1115\],
+html.dark a.bg-\[\#0F1115\] {
+  background-color: #0F1115 !important;
+  color: #F1F3F5 !important;
+  border-color: #1A1D24 !important;
+}
 html:not(.dark) button.bg-\[\#0F1115\],
 html:not(.dark) a.bg-\[\#0F1115\] {
   background-color: #FFFFFF !important;
   color: #0F172A !important;
   border-color: #E2E8F0 !important;
+}
+
+html.dark button.bg-\[\#0F1115\]:hover,
+html.dark a.bg-\[\#0F1115\]:hover {
+  background-color: #14171D !important;
+  border-color: #262A34 !important;
 }
 html:not(.dark) button.bg-\[\#0F1115\]:hover,
 html:not(.dark) a.bg-\[\#0F1115\]:hover {
@@ -195,32 +322,64 @@ html:not(.dark) a.bg-\[\#0F1115\]:hover {
 }
 
 /* 14. Form Inputs & Textareas */
+html.dark input,
+html.dark textarea {
+  background-color: #090A0C !important;
+  color: #F1F3F5 !important;
+  border-color: #1A1D24 !important;
+}
 html:not(.dark) input,
 html:not(.dark) textarea {
   background-color: #FFFFFF !important;
   color: #0F172A !important;
   border-color: #CBD5E1 !important;
 }
+
+html.dark input::placeholder,
+html.dark textarea::placeholder {
+  color: #454B54 !important;
+}
 html:not(.dark) input::placeholder,
 html:not(.dark) textarea::placeholder {
   color: #94A3B8 !important;
 }
+
+html.dark input:focus,
+html.dark textarea:focus {
+  border-color: #93C5FD !important;
+}
 html:not(.dark) input:focus,
 html:not(.dark) textarea:focus {
   border-color: #2563EB !important;
-  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15) !important;
 }
 
-/* 15. Interactive Terminal in Light Mode */
+/* 15. Interactive Terminal */
+html.dark #terminal .bg-\[\#090A0C\] {
+  background-color: #090A0C !important;
+}
 html:not(.dark) #terminal .bg-\[\#090A0C\] {
   background-color: #F8FAFC !important;
+}
+
+html.dark #terminal .bg-\[\#0F1115\] {
+  background-color: #0F1115 !important;
+  border-color: #1A1D24 !important;
 }
 html:not(.dark) #terminal .bg-\[\#0F1115\] {
   background-color: #F1F5F9 !important;
   border-color: #E2E8F0 !important;
 }
+
+html.dark #terminal .bg-\[\#0D0E11\] {
+  background-color: #0D0E11 !important;
+}
 html:not(.dark) #terminal .bg-\[\#0D0E11\] {
   background-color: #E2E8F0 !important;
+}
+
+html.dark #terminal input {
+  background-color: transparent !important;
+  color: #F1F3F5 !important;
 }
 html:not(.dark) #terminal input {
   background-color: transparent !important;
@@ -228,19 +387,36 @@ html:not(.dark) #terminal input {
 }
 
 /* 16. Academic Radar Chart SVG Elements */
+html.dark svg circle[stroke="#1A1D24"],
+html.dark svg line[stroke="#1A1D24"] {
+  stroke: #1A1D24 !important;
+}
 html:not(.dark) svg circle[stroke="#1A1D24"],
 html:not(.dark) svg line[stroke="#1A1D24"] {
   stroke: #E2E8F0 !important;
 }
+
+html.dark svg circle[stroke="#090A0C"] {
+  stroke: #090A0C !important;
+}
 html:not(.dark) svg circle[stroke="#090A0C"] {
   stroke: #FFFFFF !important;
+}
+
+html.dark svg polygon[fill="rgba(147, 197, 253, 0.1)"] {
+  fill: rgba(147, 197, 253, 0.1) !important;
+  stroke: #93C5FD !important;
 }
 html:not(.dark) svg polygon[fill="rgba(147, 197, 253, 0.1)"] {
   fill: rgba(37, 99, 235, 0.12) !important;
   stroke: #2563EB !important;
 }
 
-/* 17. Selection Highlights in Light Mode */
+/* 17. Selection Highlights */
+html.dark ::selection {
+  background-color: rgba(147, 197, 253, 0.2);
+  color: #93C5FD;
+}
 html:not(.dark) ::selection {
   background-color: rgba(37, 99, 235, 0.15);
   color: #1D4ED8;

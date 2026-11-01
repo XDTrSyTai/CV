@@ -3,10 +3,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { X } from 'lucide-react';
 import { galleryItems } from '../data/portfolioData';
 import CircularCarousel from './CircularCarousel';
-import { useTheme } from '../context/ThemeContext';
 
 export const GallerySection = () => {
-  const { isDark } = useTheme();
   const [selectedImage, setSelectedImage] = useState(null);
 
   // Format gallery items for CircularCarousel
@@ -67,7 +65,7 @@ export const GallerySection = () => {
             parallax={0.35}
             stretch={0.4}
             depthFade={0.55}
-            fadeColor={isDark ? '#090A0C' : '#F7F8FA'}
+            fadeColor="var(--cc-theme-fade)"
             innerShade={0.6}
             cornerRadius={12}
             captions={true}
@@ -98,29 +96,30 @@ export const GallerySection = () => {
             >
               <button
                 onClick={() => setSelectedImage(null)}
-                className="absolute top-4 right-4 z-10 p-2 rounded-full bg-[#14171D]/90 hover:bg-[#262A34] text-[#F1F3F5] transition-colors cursor-pointer border border-[#1A1D24]"
-                aria-label="Đóng ảnh"
+                className="absolute top-4 right-4 z-10 p-2 rounded-full bg-[#090A0C]/80 text-[#9BA1AC] hover:text-[#F1F3F5] transition-colors cursor-pointer"
+                aria-label="Đóng xem ảnh"
               >
-                <X className="w-4 h-4" />
+                <X className="w-5 h-5" />
               </button>
 
-              <div className="relative aspect-[16/10] sm:aspect-[16/9] w-full bg-[#090A0C] flex items-center justify-center overflow-hidden">
+              <div className="max-h-[65vh] overflow-hidden bg-[#090A0C] flex items-center justify-center">
                 <img
-                  src={selectedImage.src || selectedImage.imageUrl}
+                  src={selectedImage.src}
                   alt={selectedImage.title}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-contain max-h-[65vh]"
                 />
               </div>
 
-              <div className="p-5 border-t border-[#1A1D24] bg-[#0F1115] flex items-center justify-between">
-                <div>
-                  <h4 className="text-sm font-semibold text-[#F1F3F5]">
-                    {selectedImage.title}
-                  </h4>
-                  <p className="text-xs text-[#6C727F] font-mono mt-0.5">
-                    {selectedImage.subtitle || selectedImage.category}
-                  </p>
-                </div>
+              <div className="p-6">
+                <span className="text-xs font-mono text-[#93C5FD] uppercase tracking-wider">
+                  {selectedImage.category}
+                </span>
+                <h3 className="text-lg font-semibold text-[#F1F3F5] mt-1">
+                  {selectedImage.title}
+                </h3>
+                <p className="text-xs sm:text-sm text-[#9BA1AC] mt-2 leading-relaxed">
+                  {selectedImage.description}
+                </p>
               </div>
             </motion.div>
           </motion.div>

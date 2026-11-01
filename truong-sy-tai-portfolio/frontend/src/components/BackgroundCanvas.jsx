@@ -4,12 +4,16 @@ import { useTheme } from '../context/ThemeContext';
 export const BackgroundCanvas = () => {
   const canvasRef = useRef(null);
   const { isDark } = useTheme();
+  const isDarkRef = useRef(isDark);
+  isDarkRef.current = isDark;
+
+  const themeProgressRef = useRef(isDark ? 1 : 0);
 
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    const ctx = canvas.getContext('2d');
+    const ctx = canvas.getContext('2d', { alpha: true });
     if (!ctx) return;
 
     let animationFrameId;
@@ -53,34 +57,54 @@ export const BackgroundCanvas = () => {
     window.addEventListener('mousemove', handleMouseMove, { passive: true });
     window.addEventListener('mouseleave', handleMouseLeave);
 
-    // Spacious luxury grid
     const gridSize = 44;
 
     const render = () => {
+      // Clear canvas without opaque background fill so the underlying CSS background transitions smoothly
       ctx.clearRect(0, 0, width, height);
 
-      // Deep obsidian canvas
-      ctx.fillStyle = isDark ? '#090A0C' : '#F7F8FA';
-      ctx.fillRect(0, 0, width, height);
+      // Smoothly interpolate theme colors across frames without sudden jumps
+      const targetTheme = isDarkRef.current ? 1 : 0;
+      themeProgressRef.current += (targetTheme - themeProgressRef.current) * 0.15;
+      const progress = themeProgressRef.current;
 
       if (!prefersReducedMotion) {
-        // Ultra-fine micro coordinate points
-        const baseDotColor = isDark ? 'rgba(148, 163, 184, 0.06)' : 'rgba(15, 23, 42, 0.04)';
-        const activeDotColor = isDark ? 'rgba(147, 197, 253, 0.22)' : 'rgba(2, 132, 199, 0.16)';
+        // High-performance batched dot rendering
+        const r = Math.round(15 + (148 - 15) * progress);
+        const g = Math.round(23 + (163 - 23) * progress);
+        const b = Math.round(42 + (184 - 42) * progress);
+        const a = (0.04 + (0.06 - 0.04) * progress).toFixed(3);
+        const baseDotColor = `rgba(${r}, ${g}, ${b}, ${a})`;
 
-        for (let x = 0; x < width; x += gridSize) {
-          for (let y = 0; y < height; y += gridSize) {
-            const dx = x - mouse.x;
-            const dy = y - mouse.y;
-            const dist = Math.sqrt(dx * dx + dy * dy);
-
-            if (dist < 120) {
-              const factor = 1 - dist / 120;
-              ctx.fillStyle = activeDotColor;
-              ctx.fillRect(x - 0.5, y - 0.5, 1.5, 1.5);
-            } else {
-              ctx.fillStyle = baseDotColor;
+        if (!mouse.active) {
+          // Fast-path: mouse not moving, single fillStyle batch draw for entire grid
+          ctx.fillStyle = baseDotColor;
+          for (let x = 0; x < width; x += gridSize) {
+            for (let y = 0; y < height; y += gridSize) {
               ctx.fillRect(x, y, 1, 1);
+            }
+          }
+        } else {
+          // Interactive path: calculate distance only when mouse is active
+          const ar = Math.round(37 + (147 - 37) * progress);
+          const ag = Math.round(99 + (197 - 99) * progress);
+          const ab = Math.round(235 + (253 - 235) * progress);
+          const aa = (0.16 + (0.22 - 0.16) * progress).toFixed(3);
+          const activeDotColor = `rgba(${ar}, ${ag}, ${ab}, ${aa})`;
+
+          for (let x = 0; x < width; x += gridSize) {
+            for (let y = 0; y < height; y += gridSize) {
+              const dx = x - mouse.x;
+              const dy = y - mouse.y;
+              const distSq = dx * dx + dy * dy;
+
+              if (distSq < 14400) { // 120 * 120
+                ctx.fillStyle = activeDotColor;
+                ctx.fillRect(x - 0.5, y - 0.5, 1.5, 1.5);
+              } else {
+                ctx.fillStyle = baseDotColor;
+                ctx.fillRect(x, y, 1, 1);
+              }
             }
           }
         }
@@ -97,7 +121,7 @@ export const BackgroundCanvas = () => {
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('mouseleave', handleMouseLeave);
     };
-  }, [isDark]);
+  }, []); // Run once! Never tear down or reallocate memory on theme toggle
 
   return (
     <canvas
