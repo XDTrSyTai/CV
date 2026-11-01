@@ -103,12 +103,112 @@
    SYMMETRICAL DUAL-THEME COLOR SYSTEM
    ============================================================ */
 
-/* CSS Variables for 3D Carousel & Components */
+/* CSS Variables for 3D Carousel, Avatar Dual-LED & Components */
 html.dark {
   --cc-theme-fade: #090A0C;
+  --led-gradient: conic-gradient(
+    from 0deg at 50% 50%,
+    /* Tia LED 1 */
+    transparent 0deg,
+    transparent 60deg,
+    rgba(56, 189, 248, 0.1) 72deg,
+    rgba(56, 189, 248, 0.5) 84deg,
+    #38BDF8 92deg,
+    #93C5FD 96deg,
+    #FFFFFF 99deg,
+    #BAE6FD 99.8deg,
+    transparent 100.2deg,
+    transparent 240deg,
+    /* Tia LED 2 (chạy song song cạnh đối diện) */
+    rgba(56, 189, 248, 0.1) 252deg,
+    rgba(56, 189, 248, 0.5) 264deg,
+    #38BDF8 272deg,
+    #93C5FD 276deg,
+    #FFFFFF 279deg,
+    #BAE6FD 279.8deg,
+    transparent 280.2deg,
+    transparent 360deg
+  );
+  --led-aura-gradient: conic-gradient(
+    from 0deg at 50% 50%,
+    /* Aura Tia 1 */
+    transparent 0deg,
+    transparent 60deg,
+    rgba(56, 189, 248, 0.2) 75deg,
+    rgba(56, 189, 248, 0.6) 88deg,
+    rgba(147, 197, 253, 0.8) 96deg,
+    transparent 101deg,
+    transparent 240deg,
+    /* Aura Tia 2 */
+    rgba(56, 189, 248, 0.2) 255deg,
+    rgba(56, 189, 248, 0.6) 268deg,
+    rgba(147, 197, 253, 0.8) 276deg,
+    transparent 281deg,
+    transparent 360deg
+  );
+  --avatar-frame-bg: #0D0E11;
+  --avatar-inner-bg: #090A0C;
+  --avatar-border-track: #1A1D24;
 }
 html:not(.dark) {
   --cc-theme-fade: #F8F9FA;
+  --led-gradient: conic-gradient(
+    from 0deg at 50% 50%,
+    /* Tia LED 1 */
+    transparent 0deg,
+    transparent 60deg,
+    rgba(37, 99, 235, 0.08) 72deg,
+    rgba(37, 99, 235, 0.45) 84deg,
+    #60A5FA 92deg,
+    #3B82F6 96deg,
+    #1D4ED8 99deg,
+    #1E40AF 99.8deg,
+    transparent 100.2deg,
+    transparent 240deg,
+    /* Tia LED 2 (chạy song song cạnh đối diện) */
+    rgba(37, 99, 235, 0.08) 252deg,
+    rgba(37, 99, 235, 0.45) 264deg,
+    #60A5FA 272deg,
+    #3B82F6 276deg,
+    #1D4ED8 279deg,
+    #1E40AF 279.8deg,
+    transparent 280.2deg,
+    transparent 360deg
+  );
+  --led-aura-gradient: conic-gradient(
+    from 0deg at 50% 50%,
+    /* Aura Tia 1 */
+    transparent 0deg,
+    transparent 60deg,
+    rgba(37, 99, 235, 0.15) 75deg,
+    rgba(37, 99, 235, 0.55) 88deg,
+    rgba(96, 165, 250, 0.8) 96deg,
+    transparent 101deg,
+    transparent 240deg,
+    /* Aura Tia 2 */
+    rgba(37, 99, 235, 0.15) 255deg,
+    rgba(37, 99, 235, 0.55) 268deg,
+    rgba(96, 165, 250, 0.8) 276deg,
+    transparent 281deg,
+    transparent 360deg
+  );
+  --avatar-frame-bg: #F1F5F9;
+  --avatar-inner-bg: #FFFFFF;
+  --avatar-border-track: #E2E8F0;
+}
+
+@keyframes led-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-led-spin {
+  animation: led-spin 3.5s linear infinite;
+  will-change: transform;
 }
 
 /* 1. Page Canvas Background */
