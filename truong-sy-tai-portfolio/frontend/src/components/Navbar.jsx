@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Menu, X } from 'lucide-react';
 import { ThemeToggle } from './ThemeToggle';
+import { SpiderToggle } from './SpiderToggle';
 import { useTheme } from '../context/ThemeContext';
 import GooeyNav from './GooeyNav';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -115,7 +116,8 @@ export const Navbar = () => {
           </div>
 
           {/* Right Action Buttons */}
-          <div className="flex items-center space-x-3 flex-shrink-0">
+          <div className="flex items-center space-x-2.5 flex-shrink-0">
+            <SpiderToggle />
             <ThemeToggle />
 
             {/* Luxury Pill CTA Button */}
