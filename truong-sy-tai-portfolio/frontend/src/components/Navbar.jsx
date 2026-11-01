@@ -94,9 +94,9 @@ export const Navbar = () => {
               activeIndex={activeNavIndex}
               onChange={handleNavChange}
               theme={isDark ? 'dark' : 'light'}
-              color="#93C5FD"
-              colors={['#93C5FD', '#BFDBFE', '#E2E8F0']}
-              activeTextColor="#090A0C"
+              color={isDark ? '#93C5FD' : '#2563EB'}
+              colors={isDark ? ['#93C5FD', '#BFDBFE', '#E2E8F0'] : ['#2563EB', '#60A5FA', '#93C5FD']}
+              activeTextColor={isDark ? '#090A0C' : '#FFFFFF'}
               size="sm"
               frame={true}
               particleCount={8}
